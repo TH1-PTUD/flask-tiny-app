@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}ẨM THỰC VIỆT{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="header">ẨM THỰC VIỆT</div>
+    <div class="navbar">
+        <div>
+            <a href="{{ url_for('home') }}">Trang chủ</a>
+            <a href="{{ url_for('login') }}">Đăng nhập</a>
+            <a href="{{ url_for('register') }}">Đăng ký</a>
+        </div>
+    </div>
+    <div class="main-content">
+        {% block content %}{% endblock %}
+    </div>
+    <div class="footer">© 2025amthucviet </div>
+</body>
+</html>
