@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'linh_duyen_04'  # Khóa bảo mật
 bcrypt = Bcrypt(app)
 
-# Mock database (lưu user tạm thời)
+#  (lưu user tạm thời)
 users = {}
 
 # Form đăng ký
