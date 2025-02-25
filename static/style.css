@@ -83,9 +83,9 @@ body::before {
 .main-content {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Căn giữa nội dung theo chiều dọc */
+    justify-content: center;
     align-items: center;
-    min-height: calc(100vh - 80px); /* Đảm bảo phần nền kéo dài hết trang, trừ đi footer */
+    min-height: calc(100vh - 80px);
     text-align: center;
     padding: 40px;
     background: rgba(255, 255, 255, 0.2);
@@ -93,6 +93,80 @@ body::before {
     margin: 20px;
     box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(8px);
+}
+
+/* Form đăng nhập & đăng ký */
+.form-container {
+    background: rgba(255, 255, 255, 0.3);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    width: 400px;
+    text-align: center;
+}
+
+.form-container h2 {
+    margin-bottom: 20px;
+}
+
+.form-container label {
+    display: block;
+    margin: 10px 0 5px;
+    font-weight: bold;
+}
+
+.form-container input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 5px;
+}
+
+.form-container button {
+    width: 100%;
+    padding: 10px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.form-container button:hover {
+    background: #0056b3;
+}
+
+/* Flash messages */
+.flash-messages {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: 300px;
+    max-width: 500px;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.flash-success {
+    background: rgba(40, 167, 69, 0.9);
+    color: #fff;
+}
+
+.flash-error {
+    background: rgba(220, 53, 69, 0.9);
+    color: #fff;
+}
+
+.flash-warning {
+    background: rgba(255, 193, 7, 0.9);
+    color: #000;
 }
 
 /* Footer luôn nằm ở cuối trang */
@@ -108,7 +182,6 @@ body::before {
     bottom: 0;
     margin: 0 20px;
 }
-
 
 /* Dashboard: hiển thị các món ăn*/
 .dashboard-container {
@@ -159,62 +232,3 @@ body::before {
     font-size: 0.875rem;
     color: #888;
 }
-
-.read-more {
-    display: inline-block;
-    padding: 8px 15px;
-    background-color: #007bff;
-    color: #fff;
-    text-decoration: none;
-    border-radius: 5px;
-    transition: background-color 0.3s ease;
-}
-
-.read-more:hover {
-    background-color: #0056b3;
-}
-
-/* Responsive */
-@media (max-width: 992px) {
-    .blog-card {
-        width: calc(50% - 20px);
-    }
-}
-
-@media (max-width: 768px) {
-    .blog-card {
-        width: 100%;
-    }
-}
-
-@media (max-width: 576px) {
-    .blog-card {
-        width: 100%;
-    }
-}
-
-.pagination {
-    text-align: center;
-    margin: 20px 0;
-  }
-  
-  .pagination a, .pagination span {
-    display: inline-block;
-    margin: 0 5px;
-    padding: 8px 12px;
-    text-decoration: none;
-    color: #007bff;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-  }
-  
-  .pagination a:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .pagination .current {
-    background-color: #007bff;
-    color: #fff;
-    border-color: #007bff;
-  }
-  
