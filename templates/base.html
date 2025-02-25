@@ -1,23 +1,67 @@
 <!DOCTYPE html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}ẨM THỰC VIỆT{% endblock %}</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
     <div class="header">ẨM THỰC VIỆT</div>
     <div class="navbar">
-        <div>
-            <a href="{{ url_for('home') }}">Trang chủ</a>
-            <a href="{{ url_for('login') }}">Đăng nhập</a>
-            <a href="{{ url_for('register') }}">Đăng ký</a>
-        </div>
+      <div>
+        <a href="{{ url_for('home') }}">Trang chủ</a>
+        <a href="{{ url_for('login') }}">Đăng nhập</a>
+        <a href="{{ url_for('register') }}">Đăng ký</a>
+        {% if session.user %}
+        <a href="{{ url_for('logout') }}">Đăng xuất</a>
+        {% endif %}
+      </div>
     </div>
     <div class="main-content">
-        {% block content %}{% endblock %}
+      <div class="dashboard-container">
+        {% if session.user %}
+        <h1>Chào mừng, {{ session.user }}!</h1>
+        {% else %}
+        <h1>Chào mừng đến với Ẩm Thực Việt!</h1>
+        {% endif %}
+        <div class="blog-container">
+          {% for blog in blogs %}
+          <div class="blog-card">
+            <img src="{{ blog.image_url }}" alt="{{ blog.title }}" />
+            <div class="blog-info">
+              <h3>{{ blog.title }}</h3>
+              <p>{{ blog.content[:100] }}...</p>
+              <p class="meta">
+                Bởi {{ blog.author }} - {{ blog.date_published }}
+              </p>
+              <a href="#" class="read-more">Xem thêm</a>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <!-- Phân trang -->
+        {% if page is defined and total_pages is defined %}
+        <div class="pagination">
+          {% if page > 1 %}
+          <a href="{{ url_for('home', page=page-1) }}" class="prev">« Prev</a>
+          {% endif %} {% for p in range(1, total_pages + 1) %} {% if p == page
+          %}
+          <span class="current">{{ p }}</span>
+          {% else %}
+          <a href="{{ url_for('home', page=p) }}">{{ p }}</a>
+          {% endif %} {% endfor %} {% if page < total_pages %}
+          <a href="{{ url_for('home', page=page+1) }}" class="next">Next »</a>
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
+      {% block content %}{% endblock %}
     </div>
-    <div class="footer">© 2025amthucviet </div>
-</body>
+    <div class="footer">© 2025amthucviet</div>
+  </body>
 </html>
