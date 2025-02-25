@@ -6,7 +6,7 @@ from flask_bcrypt import Bcrypt
 import json
 
 app = Flask(__name__)
-app.config["SECRET_KEY"] = "linh_duyen_04"  # Khóa bảo mật
+app.config["SECRET_KEY"] = "linh_duyen_04"  
 bcrypt = Bcrypt(app)
 
 # Lưu thông tin người dùng tạm thời
