@@ -85,17 +85,17 @@ def login():
                 flash("Invalid username or password!", "danger")
     return render_template('login.html', form=form)
 
-@app.route('/dashboard')
+@app.route('/dashboard', methods=['GET'])
 def dashboard():
     if 'username' in session:
         # Lấy tất cả bài viết của người dùng hiện tại
         with sqlite3.connect(DATABASE) as conn:
             c = conn.cursor()
-            c.execute("SELECT id, content FROM posts WHERE user=?", (session['username'],))
+            c.execute("SELECT id, content FROM posts WHERE user_id=?", (session['username'],))
             user_posts = c.fetchall()
 
             # Lấy tất cả bài viết của người dùng khác
-            c.execute("SELECT id, user, content FROM posts WHERE user != ?", (session['username'],))
+            c.execute("SELECT id, user_id, content FROM posts WHERE user_id != ?", (session['username'],))
             other_posts = c.fetchall()
 
         return render_template('dashboard.html', username=session['username'], user_posts=user_posts, other_posts=other_posts)
