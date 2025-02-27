@@ -1,17 +1,16 @@
 {% extends "base.html" %}
 
-{% block title %}ĐĂNG NHẬP{% endblock %}
+{% block title %}Đăng nhập{% endblock %}
 
 {% block content %}
-    <h2>ĐĂNG NHẬP</h2>
+    <h2>Đăng nhập</h2>
     <form method="POST">
+        {{ form.hidden_tag() }}
         <label for="username">Tên đăng nhập:</label>
-        <input type="text" id="username" name="username" required>
-        
+        {{ form.username }}
         <label for="password">Mật khẩu:</label>
-        <input type="password" id="password" name="password" required>
-        
-        <button type="submit">Đăng nhập</button>
+        {{ form.password }}
+        {{ form.submit }}
     </form>
     <p>Chưa có tài khoản? <a href="{{ url_for('register') }}">Đăng ký ngay</a></p>
 {% endblock %}

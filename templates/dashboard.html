@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Welcome {{ username }} to your Dashboard</h1>
+    
+    <!-- Form đăng bài mới -->
+    <h3>Create a new post</h3>
+    <form action="{{ url_for('dashboard') }}" method="POST">
+        <textarea name="content" required></textarea><br>
+        <button type="submit">Post</button>
+    </form>
+
+    <!-- Hiển thị bài viết của người dùng hiện tại -->
+    <h3>Your Posts</h3>
+    {% for post in user_posts %}
+        <p>{{ post[1] }} (ID: {{ post[0] }})</p>
+    {% else %}
+        <p>You haven't posted anything yet.</p>
+    {% endfor %}
+
+    <!-- Hiển thị bài viết của các người dùng khác -->
+    <h3>Other Users' Posts</h3>
+    {% for post in other_posts %}
+        <p><strong>{{ post[1] }}:</strong> {{ post[2] }} (ID: {{ post[0] }})</p>
+    {% endfor %}
+</body>
+</html>
