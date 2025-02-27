@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}Quản lý User{% endblock %}
+
+{% block content %}
+    <h2>Quản lý người dùng</h2>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Tên đăng nhập</th>
+            <th>Trạng thái</th>
+            <th>Hành động</th>
+        </tr>
+        {% for user in users %}
+        <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ "Bị khóa" if user.is_blocked else "Hoạt động" }}</td>
+            <td>
+                <a href="{{ url_for('block_user', user_id=user.id) }}">Khóa</a> |
+                <a href="{{ url_for('unblock_user', user_id=user.id) }}">Mở khóa</a> |
+                <a href="{{ url_for('reset_password', user_id=user.id) }}">Reset mật khẩu</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
