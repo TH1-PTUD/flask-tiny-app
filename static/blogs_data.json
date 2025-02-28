@@ -1,0 +1,209 @@
+[
+    {
+        "id": 1,
+        "title": "Phở bò Hà Nội - Bí quyết nước dùng thơm ngon",
+        "author": "Nguyễn Thị Mai",
+        "date_published": "2025-02-20",
+        "content": "Phở bò Hà Nội là một trong những món ăn nổi tiếng nhất của Việt Nam...",
+        "image_url": "https://static.vinwonders.com/production/pho-bo-ha-noi.jpeg",
+        "tags": ["phở", "món chính", "ẩm thực miền Bắc"]
+    },
+    {
+        "id": 2,
+        "title": "Cách làm bún bò Huế đậm đà chuẩn vị",
+        "author": "Lê Hoàng An",
+        "date_published": "2025-01-15",
+        "content": "Bún bò Huế có hương vị đặc trưng của miền Trung...",
+        "image_url": "https://i.ytimg.com/vi/CSI9ildGX9s/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCxhRIyoYY7k9ZuxY0YOC9jNFLapg",
+        "tags": ["bún", "Huế", "ẩm thực miền Trung"]
+    },
+    {
+        "id": 3,
+        "title": "Bánh tráng trộn - Món ăn vặt quốc dân",
+        "author": "Phạm Văn Hùng",
+        "date_published": "2025-02-01",
+        "content": "Bánh tráng trộn là món ăn vặt phổ biến của giới trẻ...",
+        "image_url": "https://i-giadinh.vnecdn.net/2023/08/05/mon-7-1691221823-6409-1691221866.jpg",
+        "tags": ["bánh tráng", "ăn vặt", "ẩm thực đường phố"]
+    },
+    {
+        "id": 4,
+        "title": "Cơm tấm Sài Gòn - Hương vị khó quên",
+        "author": "Trần Văn Bình",
+        "date_published": "2025-03-05",
+        "content": "Cơm tấm Sài Gòn luôn là lựa chọn hàng đầu của người dân thành phố...",
+        "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlsaze_i4UgpC8KnQhEz71BHs56glv_Aqp5w&s",
+        "tags": ["cơm tấm", "món chính", "ẩm thực miền Nam"]
+    },
+    {
+        "id": 5,
+        "title": "Bún riêu cua - Đậm đà hương vị truyền thống",
+        "author": "Hoàng Thị Lan",
+        "date_published": "2025-03-10",
+        "content": "Bún riêu cua là món ăn được ưa chuộng bởi hương vị chua ngọt đặc trưng...",
+        "image_url": "https://tiki.vn/blog/wp-content/uploads/2023/07/thumb.jpeg",
+        "tags": ["bún riêu", "truyền thống", "ẩm thực miền Bắc"]
+    },
+    {
+        "id": 6,
+        "title": "Chả cá Lã Vọng - Hương vị đặc sắc Hà Nội",
+        "author": "Nguyễn Văn Quang",
+        "date_published": "2025-03-15",
+        "content": "Chả cá Lã Vọng là món ăn nổi tiếng của thủ đô với cá nướng thơm lừng...",
+        "image_url": "https://www.cet.edu.vn/wp-content/uploads/2018/08/cha-ca-la-vong.jpg",
+        "tags": ["chả cá", "Hà Nội", "ẩm thực miền Bắc"]
+    },
+    {
+        "id": 7,
+        "title": "Bánh mì đặc biệt - Sự kết hợp hoàn hảo của vị giác",
+        "author": "Lê Thị Hồng",
+        "date_published": "2025-03-20",
+        "content": "Bánh mì đặc biệt với lớp vỏ giòn rụm và nhân phong phú...",
+        "image_url": "https://banhmixinchao.co.jp/wp-content/uploads/2023/05/banh_mi_dac_biet_bmxc.png",
+        "tags": ["bánh mì", "ăn sáng", "ẩm thực đường phố"]
+    },
+    {
+        "id": 8,
+        "title": "Hủ tiếu Nam Vang - Món ăn đậm đà hương vị Campuchia",
+        "author": "Phạm Thị Mai",
+        "date_published": "2025-03-25",
+        "content": "Hủ tiếu Nam Vang mang đến hương vị độc đáo với sự pha trộn giữa ẩm thực Việt và Campuchia...",
+        "image_url": "https://www.huongnghiepaau.com/wp-content/uploads/2019/01/hu-tieu-nam-vang-1.jpg",
+        "tags": ["hủ tiếu", "Nam Vang", "ẩm thực miền Nam"]
+    },
+    {
+        "id": 9,
+        "title": "Gỏi cuốn - Sự tươi mát trong từng cuộn rau",
+        "author": "Trần Thị Phương",
+        "date_published": "2025-03-30",
+        "content": "Gỏi cuốn là món ăn nhẹ nhàng, bổ dưỡng, phù hợp cho mọi bữa ăn...",
+        "image_url": "https://i.ytimg.com/vi/w34Qnc-9KBU/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLAzXE6ASDMpVme1qsjbkQx4v-KaYA",
+        "tags": ["gỏi cuốn", "ăn nhẹ", "ẩm thực sức khỏe"]
+    },
+    {
+        "id": 10,
+        "title": "Bánh xèo - Món ăn sôi động của miền Trung",
+        "author": "Nguyễn Minh Tuấn",
+        "date_published": "2025-04-05",
+        "content": "Bánh xèo với lớp vỏ mỏng giòn, nhân tôm thịt đậm đà hương vị...",
+        "image_url": "https://i-giadinh.vnecdn.net/2023/09/19/Bc10Thnhphm11-1695107510-2493-1695107555.jpg",
+        "tags": ["bánh xèo", "món vặt", "ẩm thực miền Trung"]
+    },
+    {
+        "id": 11,
+        "title": "Xôi gà - Sự hòa quyện tuyệt vời của xôi và gà",
+        "author": "Phạm Văn Đức",
+        "date_published": "2025-04-10",
+        "content": "Xôi gà là món ăn truyền thống, đặc biệt được ưa chuộng vào các dịp lễ hội...",
+        "image_url": "https://example.com/images/xoi-ga.jpg",
+        "tags": ["xôi", "truyền thống", "ẩm thực miền Bắc"]
+    },
+    {
+        "id": 12,
+        "title": "Mì Quảng - Món ăn đặc sản của Quảng Nam",
+        "author": "Nguyễn Thị Hoa",
+        "date_published": "2025-04-15",
+        "content": "Mì Quảng với nước dùng đậm đà và sợi mì dai ngon là một trải nghiệm ẩm thực khó quên...",
+        "image_url": "https://example.com/images/mi-quang.jpg",
+        "tags": ["mì Quảng", "đặc sản", "ẩm thực miền Trung"]
+    },
+    {
+        "id": 13,
+        "title": "Bánh cuốn - Tinh hoa của ẩm thực miền Bắc",
+        "author": "Trần Văn Huy",
+        "date_published": "2025-04-20",
+        "content": "Bánh cuốn mềm mại, thơm lừng mùi hành, là món ăn sáng quen thuộc của nhiều người...",
+        "image_url": "https://example.com/images/banh-cuon.jpg",
+        "tags": ["bánh cuốn", "ăn sáng", "ẩm thực miền Bắc"]
+    },
+    {
+        "id": 14,
+        "title": "Chè ba màu - Sự hòa quyện ngọt ngào của ba lớp chè",
+        "author": "Lê Thị Trang",
+        "date_published": "2025-04-25",
+        "content": "Chè ba màu là món tráng miệng giải nhiệt, với sự kết hợp độc đáo của đậu xanh, đậu đỏ và thạch...",
+        "image_url": "https://example.com/images/che-ba-mau.jpg",
+        "tags": ["chè", "tráng miệng", "ẩm thực đường phố"]
+    },
+    {
+        "id": 15,
+        "title": "Bún chả - Hương vị Hà Nội đậm đà",
+        "author": "Phạm Minh Hoàng",
+        "date_published": "2025-05-01",
+        "content": "Bún chả với thịt nướng thơm lừng và nước mắm chua ngọt luôn là niềm tự hào của ẩm thực Hà Nội...",
+        "image_url": "https://example.com/images/bun-cha.jpg",
+        "tags": ["bún chả", "Hà Nội", "ẩm thực miền Bắc"]
+    },
+    {
+        "id": 16,
+        "title": "Nem rán - Món ăn vặt được yêu thích",
+        "author": "Nguyễn Thị Lan Anh",
+        "date_published": "2025-05-05",
+        "content": "Nem rán với lớp vỏ giòn rụm, nhân thịt đậm đà luôn làm say lòng giới trẻ...",
+        "image_url": "https://example.com/images/nem-ran.jpg",
+        "tags": ["nem rán", "ăn vặt", "ẩm thực đường phố"]
+    },
+    {
+        "id": 17,
+        "title": "Lẩu thái - Hương vị cay nồng đậm đà",
+        "author": "Trần Thị Mai Linh",
+        "date_published": "2025-05-10",
+        "content": "Lẩu thái với nước dùng cay nồng, đầy hương vị của sả, ớt luôn là lựa chọn tuyệt vời cho những buổi họp mặt gia đình...",
+        "image_url": "https://example.com/images/lau-thai.jpg",
+        "tags": ["lẩu", "Thái", "ẩm thực quốc tế"]
+    },
+    {
+        "id": 18,
+        "title": "Sinh tố dâu - Giải nhiệt mùa hè",
+        "author": "Lê Văn Dũng",
+        "date_published": "2025-05-15",
+        "content": "Sinh tố dâu tươi mát, bổ dưỡng là món uống giải khát lý tưởng trong những ngày hè oi bức...",
+        "image_url": "https://example.com/images/sinh-to-dau.jpg",
+        "tags": ["sinh tố", "nước ép", "ẩm thực sức khỏe"]
+    },
+    {
+        "id": 19,
+        "title": "Bánh bao nóng hổi - Món ăn sáng tiện lợi",
+        "author": "Nguyễn Thị Hương",
+        "date_published": "2025-05-20",
+        "content": "Bánh bao với nhân thịt, rau củ được hấp chín tới tạo nên bữa sáng đầy đủ dinh dưỡng...",
+        "image_url": "https://example.com/images/banh-bao.jpg",
+        "tags": ["bánh bao", "ăn sáng", "ẩm thực đường phố"]
+    },
+    {
+        "id": 20,
+        "title": "Cà phê sữa đá - Thức uống kinh điển của người Việt",
+        "author": "Phạm Văn Sơn",
+        "date_published": "2025-05-25",
+        "content": "Cà phê sữa đá với vị đắng pha ngọt đặc trưng luôn là lựa chọn hàng đầu cho người Việt...",
+        "image_url": "https://example.com/images/ca-phe-sua-da.jpg",
+        "tags": ["cà phê", "thức uống", "ẩm thực Việt"]
+    },
+    {
+        "id": 21,
+        "title": "Bún đậu mắm tôm - Món ăn độc đáo của miền Bắc",
+        "author": "Trần Văn Minh",
+        "date_published": "2025-05-30",
+        "content": "Bún đậu mắm tôm với hương vị độc đáo, chua cay là trải nghiệm ẩm thực khó quên...",
+        "image_url": "https://example.com/images/bun-dau-mam-tom.jpg",
+        "tags": ["bún đậu", "mắm tôm", "ẩm thực miền Bắc"]
+    },
+    {
+        "id": 22,
+        "title": "Chè đậu xanh - Sự ngọt ngào truyền thống",
+        "author": "Lê Thị Phương",
+        "date_published": "2025-06-05",
+        "content": "Chè đậu xanh với hương vị dịu nhẹ, ngọt thanh luôn là món tráng miệng quen thuộc trong gia đình...",
+        "image_url": "https://example.com/images/che-dau-xanh.jpg",
+        "tags": ["chè", "tráng miệng", "ẩm thực truyền thống"]
+    },
+    {
+        "id": 23,
+        "title": "Bánh đúc nóng hổi - Hương vị quê nhà",
+        "author": "Nguyễn Văn Hòa",
+        "date_published": "2025-06-10",
+        "content": "Bánh đúc với vị béo, mềm mịn và nước mắm pha chút tỏi luôn gợi nhớ những bữa cơm gia đình...",
+        "image_url": "https://example.com/images/banh-duc.jpg",
+        "tags": ["bánh đúc", "truyền thống", "ẩm thực miền Bắc"]
+    }
+]
