@@ -3,14 +3,47 @@
 {% block title %}Đăng nhập{% endblock %}
 
 {% block content %}
-    <h2>Đăng nhập</h2>
-    <form method="POST">
+<div style="display: flex; justify-content: center; align-items: center; min-height: 90vh;">
+    <form method="POST" style="
+        background: rgba(255, 255, 255, 0.2);
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        width: 100%;
+        max-width: 420px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    ">
+        <h2 style="margin-bottom: 20px; font-size: 30px; font-weight: 700; color: #fff;">Chào mừng bạn đến với Ẩm thực Việt</h2>
+        <h3 style="margin-bottom: 25px; font-size: 22px; font-weight: 600; color: #fff;">Đăng nhập</h3>
+
         {{ form.hidden_tag() }}
-        <label for="username">Tên đăng nhập:</label>
-        {{ form.username }}
-        <label for="password">Mật khẩu:</label>
-        {{ form.password }}
-        {{ form.submit }}
+
+        <div style="width: 100%; max-width: 85%; text-align: left;">
+            <label for="username" style="font-size: 18px; font-weight: 500; margin-bottom: 6px; color: #fff;">Tên đăng nhập:</label>
+            {{ form.username(placeholder="Nhập tên đăng nhập", style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px;") }}
+            
+            {% if form.username.errors %}
+                <span style="color: red; font-size: 14px;">{{ form.username.errors[0] }}</span>
+            {% endif %}
+
+            <label for="password" style="font-size: 18px; font-weight: 500; margin-top: 15px; margin-bottom: 6px; color: #fff;">Mật khẩu:</label>
+            {{ form.password(placeholder="Nhập mật khẩu", style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 16px;") }}
+            
+            {% if form.password.errors %}
+                <span style="color: red; font-size: 14px;">{{ form.password.errors[0] }}</span>
+            {% endif %}
+        </div>
+
+        {{ form.submit(style="width: 100%; max-width: 85%; padding: 12px; margin-top: 20px; border: none; border-radius: 6px; background: #007bff; color: #fff; font-size: 18px; font-weight: 600; cursor: pointer; transition: 0.3s;") }}
+
+        <p style="margin-top: 20px; font-size: 16px; color: #fff;">
+            Chưa có tài khoản? <a href="{{ url_for('register') }}" style="color: #ffcc00; text-decoration: none; font-weight: 600;">Đăng ký ngay</a>
+        </p>
     </form>
-    <p>Chưa có tài khoản? <a href="{{ url_for('register') }}">Đăng ký ngay</a></p>
+</div>
 {% endblock %}

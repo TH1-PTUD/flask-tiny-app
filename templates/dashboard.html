@@ -1,100 +1,126 @@
 <!DOCTYPE html>
 <html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="vi">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap">
     <style>
-      /* Thiết lập nền */
-      body {
-        background-image: url('https://st.ielts-fighter.com/src/ielts-fighter-image/2023/07/21/0862c163-ced6-4ee9-8ce2-beb57f2065a0.jpg');
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        color: black;
-        font-family: Arial, sans-serif;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-      }
+        /* Đặt ảnh nền */
+        body {
+            background-image: url('https://st.ielts-fighter.com/src/ielts-fighter-image/2023/07/21/0862c163-ced6-4ee9-8ce2-beb57f2065a0.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            font-family: 'Quicksand', sans-serif;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-      /* Hộp chứa nội dung */
-      .container {
-        max-width: 850px;
-        background: rgba(255, 255, 255, 0.75); /* Trắng mờ hơn */
-        padding: 25px;
-        border-radius: 12px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        text-align: center;
-      }
+        /* Container */
+        .container {
+            max-width: 900px;
+            width: 90%;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.75);
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
 
-      /* Tiêu đề */
-      h1 {
-        font-size: 28px;
-        color: black;
-        text-transform: uppercase;
-        margin-bottom: 15px;
-      }
+        /* Tiêu đề */
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+        }
 
-      h3 {
-        font-size: 20px;
-        margin-bottom: 15px;
-        color: black;
-      }
+        h3 {
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
 
-      /* Ô nhập nội dung */
-      textarea {
-        width: 95%;
-        height: 120px;
-        padding: 12px;
-        font-size: 16px;
-        border-radius: 8px;
-        border: 1px solid gray;
-        outline: none;
-        resize: none;
-        background-color: rgba(180, 180, 180, 0.7); /* Xám đậm hơn */
-        color: black;
-        box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
-      }
+        /* Text area */
+        textarea {
+            width: 100%;
+            max-width: 600px;
+            height: 120px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border: none;
+            resize: none;
+            font-size: 16px;
+            font-family: 'Quicksand', sans-serif;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+        }
 
-      /* Nút đăng bài */
-      button {
-        margin-top: 10px;
-        padding: 12px 25px;
-        background-color: #ffcc00;
-        color: black;
-        border: none;
-        border-radius: 8px;
-        font-size: 16px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
+        /* Nút */
+        button {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            width: 100%;
+            max-width: 220px;
+            transition: all 0.3s ease;
+        }
 
+        button:hover {
+            background: linear-gradient(135deg, #0056b3, #004080);
+            transform: scale(1.05);
+        }
       button:hover {
         background-color: #e6b800;
         transform: scale(1.05);
       }
 
-      /* Hiển thị bài viết */
-      p {
-        font-size: 16px;
-        text-align: left;
-        padding: 8px;
-        background: rgba(180, 180, 180, 0.7); /* Xám đậm hơn */
-        border-radius: 6px;
-        margin-bottom: 8px;
-        color: black;
-      }
+        /* Hiển thị bài viết */
+        .posts {
+            margin-top: 20px;
+        }
 
-      /* Chữ màu đen cho tên người đăng */
-      strong {
-        color: black;
-      }
+        p {
+            margin: 10px 0;
+            font-size: 18px;
+        }
 
+        strong {
+            color: #ffd700;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 24px;
+            }
+            h3 {
+                font-size: 20px;
+            }
+            .container {
+                padding: 20px;
+            }
+            button {
+                font-size: 16px;
+            }
+        }
       /* Responsive */
       @media (max-width: 768px) {
         .container {
@@ -106,9 +132,20 @@
         }
       }
     </style>
-  </head>
-  <body>
+</head>
+<body>
+
     <div class="container">
+        <h1>BLOG ẨM THỰC VIỆT - NƠI HỘI TỤ NHỮNG MÓN ĂN NGON</h1>
+        <h3>Chia sẻ bài viết của bạn</h3>
+        
+        <textarea id="postInput" placeholder="Nhập nội dung bài viết..."></textarea>
+        <br>
+        <button onclick="addPost()">Đăng bài</button>
+
+        <div class="posts" id="postsContainer">
+            <!-- Bài viết sẽ được thêm vào đây -->
+        </div>
       <h1>Chào mừng {{ username }} đến với blog!</h1>
 
       <!-- Form đăng bài -->
@@ -132,5 +169,20 @@
         <p><strong>{{ post[1] }}</strong>: {{ post[2] }} (ID: {{ post[0] }})</p>
       {% endfor %}
     </div>
-  </body>
+
+    <script>
+        function addPost() {
+            let input = document.getElementById('postInput');
+            let text = input.value.trim();
+            if (text !== "") {
+                let container = document.getElementById('postsContainer');
+                let newPost = document.createElement('p');
+                newPost.innerHTML = "<strong>Bạn:</strong> " + text;
+                container.prepend(newPost);
+                input.value = ""; // Xóa nội dung sau khi đăng
+            }
+        }
+    </script>
+
+</body>
 </html>
