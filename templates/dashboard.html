@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap">
     <style>
@@ -83,6 +87,10 @@
             background: linear-gradient(135deg, #0056b3, #004080);
             transform: scale(1.05);
         }
+      button:hover {
+        background-color: #e6b800;
+        transform: scale(1.05);
+      }
 
         /* Hiển thị bài viết */
         .posts {
@@ -113,6 +121,16 @@
                 font-size: 16px;
             }
         }
+      /* Responsive */
+      @media (max-width: 768px) {
+        .container {
+          width: 95%;
+        }
+
+        textarea {
+          width: 100%;
+        }
+      }
     </style>
 </head>
 <body>
@@ -128,6 +146,28 @@
         <div class="posts" id="postsContainer">
             <!-- Bài viết sẽ được thêm vào đây -->
         </div>
+      <h1>Chào mừng {{ username }} đến với blog!</h1>
+
+      <!-- Form đăng bài -->
+      <h3>Hãy tạo một bài viết cho riêng bạn!</h3>
+      <form action="{{ url_for('dashboard') }}" method="GET">
+        <textarea name="content" placeholder="Món ăn bạn muốn chia sẻ là gì?" required></textarea><br />
+        <button type="submit">Đăng bài</button>
+      </form>
+
+      <!-- Hiển thị bài viết của người dùng hiện tại -->
+      <h3>Bài viết của bạn</h3>
+      {% for post in user_posts %}
+        <p>{{ post[1] }} (ID: {{ post[0] }})</p>
+      {% else %}
+        <p>Bạn chưa có bài viết nào.</p>
+      {% endfor %}
+
+      <!-- Hiển thị bài viết của các người dùng khác -->
+      <h3>Các bài viết khác</h3>
+      {% for post in other_posts %}
+        <p><strong>{{ post[1] }}</strong>: {{ post[2] }} (ID: {{ post[0] }})</p>
+      {% endfor %}
     </div>
 
     <script>
