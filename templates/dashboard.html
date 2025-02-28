@@ -1,166 +1,135 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&display=swap" rel="stylesheet" />
     <style>
-      /* Đặt ảnh nền cho trang */
+      /* Thiết lập nền */
       body {
-        background-image: url('https://i.pinimg.com/736x/0c/75/3d/0c753d513dc6e8c190c453d45d8f35e9.jpg');
-        background-size: cover; /* Đảm bảo ảnh không bị mờ và lấp đầy toàn bộ màn hình */
+        background-image: url('https://st.ielts-fighter.com/src/ielts-fighter-image/2023/07/21/0862c163-ced6-4ee9-8ce2-beb57f2065a0.jpg');
+        background-size: cover;
         background-position: center;
         background-attachment: fixed;
-        color: white;
-        font-family: 'Quicksand', sans-serif;
+        color: black;
+        font-family: Arial, sans-serif;
         padding: 0;
         margin: 0;
         display: flex;
         justify-content: center;
         align-items: center;
         height: 100vh;
-        /* Loại bỏ hiệu ứng mờ */
       }
 
-      /* Tạo khối container với nền trong suốt và đổ bóng */
+      /* Hộp chứa nội dung */
       .container {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 30px;
-        background: rgba(0, 0, 0, 0.8);
-        border-radius: 15px;
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
-        width: 100%;
-        box-sizing: border-box;
+        max-width: 850px;
+        background: rgba(255, 255, 255, 0.75); /* Trắng mờ hơn */
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        text-align: center;
       }
 
-      /* Tiêu đề chính với hiệu ứng động */
+      /* Tiêu đề */
       h1 {
-        text-align: center;
-        font-size: 32px;
-        margin-bottom: 20px;
-        font-weight: 500;
-        color: #fff;
+        font-size: 28px;
+        color: black;
         text-transform: uppercase;
-        letter-spacing: 2px;
-        transition: all 0.3s ease;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        margin-bottom: 15px;
       }
 
-      h1:hover {
-        color: #ff6f61;
-        transform: translateY(-5px);
-      }
-
-      /* Tiêu đề phụ */
       h3 {
-        text-align: center;
-        font-size: 24px;
-        margin-bottom: 20px;
-        font-weight: 500;
-        color: #fff;
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        font-size: 20px;
+        margin-bottom: 15px;
+        color: black;
       }
 
-      /* Định dạng cho form tạo bài mới */
-      form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 30px;
-      }
-
-      /* Chỉnh sửa text area */
+      /* Ô nhập nội dung */
       textarea {
-        width: 100%;
-        max-width: 600px;
+        width: 95%;
         height: 120px;
-        padding: 15px;
-        margin-bottom: 10px;
-        border-radius: 8px;
-        border: none;
-        resize: none;
+        padding: 12px;
         font-size: 16px;
-        font-family: 'Quicksand', sans-serif;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        border: 1px solid gray;
+        outline: none;
+        resize: none;
+        background-color: rgba(180, 180, 180, 0.7); /* Xám đậm hơn */
+        color: black;
+        box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
       }
 
-      /* Nút bấm */
+      /* Nút đăng bài */
       button {
+        margin-top: 10px;
         padding: 12px 25px;
-        background-color: #4caf50;
-        color: white;
+        background-color: #ffcc00;
+        color: black;
         border: none;
         border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
         cursor: pointer;
-        font-size: 18px;
-        width: 100%;
-        max-width: 220px;
-        transition: background-color 0.3s ease, transform 0.2s ease;
+        transition: all 0.3s ease;
       }
 
-      /* Hiệu ứng khi hover nút */
       button:hover {
-        background-color: #45a049;
+        background-color: #e6b800;
         transform: scale(1.05);
       }
 
-      /* Hiển thị các bài viết */
+      /* Hiển thị bài viết */
       p {
-        margin: 15px 0;
-        font-size: 18px;
+        font-size: 16px;
+        text-align: left;
+        padding: 8px;
+        background: rgba(180, 180, 180, 0.7); /* Xám đậm hơn */
+        border-radius: 6px;
+        margin-bottom: 8px;
+        color: black;
       }
 
-      /* Định dạng các bài viết của người khác */
+      /* Chữ màu đen cho tên người đăng */
       strong {
-        color: #ffd700;
-        font-weight: bold;
+        color: black;
       }
 
-      /* Responsive cho thiết bị di động */
+      /* Responsive */
       @media (max-width: 768px) {
-        h1 {
-          font-size: 24px;
-        }
-
-        h3 {
-          font-size: 22px;
-        }
-
         .container {
-          padding: 20px;
+          width: 95%;
         }
 
-        button {
-          font-size: 16px;
+        textarea {
+          width: 100%;
         }
       }
     </style>
   </head>
   <body>
     <div class="container">
-      <h1>Welcome {{ username }} to your BLOG</h1>
+      <h1>Chào mừng {{ username }}!</h1>
 
-      <!-- Form đăng bài mới -->
-      <h3>Create a new post</h3>
+      <!-- Form đăng bài -->
+      <h3>Hãy chia sẻ món ăn của bạn</h3>
       <form action="{{ url_for('dashboard') }}" method="GET">
-        <textarea name="content" required></textarea><br />
-        <button type="submit">Post</button>
+        <textarea name="content" placeholder="Món ăn bạn muốn chia sẻ là gì?" required></textarea><br />
+        <button type="submit">Đăng bài</button>
       </form>
 
       <!-- Hiển thị bài viết của người dùng hiện tại -->
-      <h3>Your Posts</h3>
+      <h3>Bài viết của bạn</h3>
       {% for post in user_posts %}
         <p>{{ post[1] }} (ID: {{ post[0] }})</p>
       {% else %}
-        <p>You haven't posted anything yet.</p>
+        <p>Bạn chưa có bài viết nào.</p>
       {% endfor %}
 
       <!-- Hiển thị bài viết của các người dùng khác -->
-      <h3>Other Users' Posts</h3>
+      <h3>Các bài viết khác</h3>
       {% for post in other_posts %}
-        <p><strong>{{ post[1] }}:</strong> {{ post[2] }} (ID: {{ post[0] }})</p>
+        <p><strong>{{ post[1] }}</strong>: {{ post[2] }} (ID: {{ post[0] }})</p>
       {% endfor %}
     </div>
   </body>
