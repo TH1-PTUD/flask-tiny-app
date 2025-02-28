@@ -1,167 +1,148 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap">
     <style>
-      /* Đặt ảnh nền cho trang */
-      body {
-        background-image: url('https://i.pinimg.com/736x/0c/75/3d/0c753d513dc6e8c190c453d45d8f35e9.jpg');
-        background-size: cover; /* Đảm bảo ảnh không bị mờ và lấp đầy toàn bộ màn hình */
-        background-position: center;
-        background-attachment: fixed;
-        color: white;
-        font-family: 'Quicksand', sans-serif;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        /* Loại bỏ hiệu ứng mờ */
-      }
+        /* Đặt ảnh nền */
+        body {
+            background-image: url('https://st.ielts-fighter.com/src/ielts-fighter-image/2023/07/21/0862c163-ced6-4ee9-8ce2-beb57f2065a0.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            font-family: 'Quicksand', sans-serif;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
 
-      /* Tạo khối container với nền trong suốt và đổ bóng */
-      .container {
-        max-width: 900px;
-        margin: 0 auto;
-        padding: 30px;
-        background: rgba(0, 0, 0, 0.8);
-        border-radius: 15px;
-        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
-        width: 100%;
-        box-sizing: border-box;
-      }
+        /* Container */
+        .container {
+            max-width: 900px;
+            width: 90%;
+            padding: 30px;
+            background: rgba(0, 0, 0, 0.75);
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.4);
+            text-align: center;
+        }
 
-      /* Tiêu đề chính với hiệu ứng động */
-      h1 {
-        text-align: center;
-        font-size: 32px;
-        margin-bottom: 20px;
-        font-weight: 500;
-        color: #fff;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        transition: all 0.3s ease;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
-      }
-
-      h1:hover {
-        color: #ff6f61;
-        transform: translateY(-5px);
-      }
-
-      /* Tiêu đề phụ */
-      h3 {
-        text-align: center;
-        font-size: 24px;
-        margin-bottom: 20px;
-        font-weight: 500;
-        color: #fff;
-        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
-      }
-
-      /* Định dạng cho form tạo bài mới */
-      form {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-bottom: 30px;
-      }
-
-      /* Chỉnh sửa text area */
-      textarea {
-        width: 100%;
-        max-width: 600px;
-        height: 120px;
-        padding: 15px;
-        margin-bottom: 10px;
-        border-radius: 8px;
-        border: none;
-        resize: none;
-        font-size: 16px;
-        font-family: 'Quicksand', sans-serif;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-      }
-
-      /* Nút bấm */
-      button {
-        padding: 12px 25px;
-        background-color: #4caf50;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 18px;
-        width: 100%;
-        max-width: 220px;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-      }
-
-      /* Hiệu ứng khi hover nút */
-      button:hover {
-        background-color: #45a049;
-        transform: scale(1.05);
-      }
-
-      /* Hiển thị các bài viết */
-      p {
-        margin: 15px 0;
-        font-size: 18px;
-      }
-
-      /* Định dạng các bài viết của người khác */
-      strong {
-        color: #ffd700;
-        font-weight: bold;
-      }
-
-      /* Responsive cho thiết bị di động */
-      @media (max-width: 768px) {
+        /* Tiêu đề */
         h1 {
-          font-size: 24px;
+            font-size: 28px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
         }
 
         h3 {
-          font-size: 22px;
+            font-size: 22px;
+            margin-bottom: 15px;
+            font-weight: 500;
         }
 
-        .container {
-          padding: 20px;
+        /* Text area */
+        textarea {
+            width: 100%;
+            max-width: 600px;
+            height: 120px;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            border: none;
+            resize: none;
+            font-size: 16px;
+            font-family: 'Quicksand', sans-serif;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
         }
 
+        /* Nút */
         button {
-          font-size: 16px;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            width: 100%;
+            max-width: 220px;
+            transition: all 0.3s ease;
         }
-      }
+
+        button:hover {
+            background: linear-gradient(135deg, #0056b3, #004080);
+            transform: scale(1.05);
+        }
+
+        /* Hiển thị bài viết */
+        .posts {
+            margin-top: 20px;
+        }
+
+        p {
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        strong {
+            color: #ffd700;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 24px;
+            }
+            h3 {
+                font-size: 20px;
+            }
+            .container {
+                padding: 20px;
+            }
+            button {
+                font-size: 16px;
+            }
+        }
     </style>
-  </head>
-  <body>
+</head>
+<body>
+
     <div class="container">
-      <h1>Welcome {{ username }} to your BLOG</h1>
+        <h1>BLOG ẨM THỰC VIỆT - NƠI HỘI TỤ NHỮNG MÓN ĂN NGON</h1>
+        <h3>Chia sẻ bài viết của bạn</h3>
+        
+        <textarea id="postInput" placeholder="Nhập nội dung bài viết..."></textarea>
+        <br>
+        <button onclick="addPost()">Đăng bài</button>
 
-      <!-- Form đăng bài mới -->
-      <h3>Create a new post</h3>
-      <form action="{{ url_for('dashboard') }}" method="GET">
-        <textarea name="content" required></textarea><br />
-        <button type="submit">Post</button>
-      </form>
-
-      <!-- Hiển thị bài viết của người dùng hiện tại -->
-      <h3>Your Posts</h3>
-      {% for post in user_posts %}
-        <p>{{ post[1] }} (ID: {{ post[0] }})</p>
-      {% else %}
-        <p>You haven't posted anything yet.</p>
-      {% endfor %}
-
-      <!-- Hiển thị bài viết của các người dùng khác -->
-      <h3>Other Users' Posts</h3>
-      {% for post in other_posts %}
-        <p><strong>{{ post[1] }}:</strong> {{ post[2] }} (ID: {{ post[0] }})</p>
-      {% endfor %}
+        <div class="posts" id="postsContainer">
+            <!-- Bài viết sẽ được thêm vào đây -->
+        </div>
     </div>
-  </body>
+
+    <script>
+        function addPost() {
+            let input = document.getElementById('postInput');
+            let text = input.value.trim();
+            if (text !== "") {
+                let container = document.getElementById('postsContainer');
+                let newPost = document.createElement('p');
+                newPost.innerHTML = "<strong>Bạn:</strong> " + text;
+                container.prepend(newPost);
+                input.value = ""; // Xóa nội dung sau khi đăng
+            }
+        }
+    </script>
+
+</body>
 </html>

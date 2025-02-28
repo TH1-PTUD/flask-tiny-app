@@ -3,16 +3,39 @@
 {% block title %}Đăng ký{% endblock %}
 
 {% block content %}
-    <h2>Đăng ký tài khoản</h2>
-    <form method="POST">
+<div style="
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;">
+    
+    <form method="POST" style="
+        background: rgba(255, 255, 255, 0.2);
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(8px);
+        width: 100%;
+        max-width: 420px;
+        text-align: center;">
+        
+        <h2 style="margin-bottom: 20px; font-weight: 700; color: #fff;">Đăng ký tài khoản</h2>
         {{ form.hidden_tag() }}
-        <label for="username">Tên đăng nhập:</label>
-        {{ form.username }}
-        <label for="password">Mật khẩu:</label>
-        {{ form.password }}
-        <label for="confirm_password">Xác nhận mật khẩu:</label>
-        {{ form.confirm_password }}
-        {{ form.submit }}
+
+        <div style="display: flex; flex-direction: column; align-items: center; width: 100%;">
+            <label for="username" style="width: 100%; text-align: left; font-size: 14px; margin: 10px 0 5px; color: #fff;">Tên đăng nhập:</label>
+            {{ form.username(style="width: 90%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; outline: none; font-size: 16px; background: rgba(255,255,255,0.7); text-align: center;") }}
+
+            <label for="password" style="width: 100%; text-align: left; font-size: 14px; margin: 10px 0 5px; color: #fff;">Mật khẩu:</label>
+            {{ form.password(style="width: 90%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; outline: none; font-size: 16px; background: rgba(255,255,255,0.7); text-align: center;") }}
+
+            <label for="confirm_password" style="width: 100%; text-align: left; font-size: 14px; margin: 10px 0 5px; color: #fff;">Xác nhận mật khẩu:</label>
+            {{ form.confirm_password(style="width: 90%; padding: 12px; border: 2px solid #ddd; border-radius: 8px; outline: none; font-size: 16px; background: rgba(255,255,255,0.7); text-align: center;") }}
+
+            {{ form.submit(style="width: 90%; padding: 12px; margin-top: 20px; border: none; border-radius: 8px; background: #4caf50; color: #fff; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.3s;") }}
+        </div>
+
+        <p style="margin-top: 15px; color: #fff;">Đã có tài khoản? <a href="{{ url_for('login') }}" style="color: #ffcc00; text-decoration: none; font-weight: 700;">Đăng nhập ngay</a></p>
     </form>
-    <p>Đã có tài khoản? <a href="{{ url_for('login') }}">Đăng nhập ngay</a></p>
+</div>
 {% endblock %}
