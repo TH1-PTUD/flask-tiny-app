@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
+<<<<<<< HEAD
 <head>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -195,8 +196,114 @@
             .posts-container {
                 grid-template-columns: 1fr; /* 1 bài trên hàng cho màn hình rất nhỏ */
             }
+=======
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <style>
+      /* Thiết lập nền */
+      body {
+        background-image: url('https://st.ielts-fighter.com/src/ielts-fighter-image/2023/07/21/0862c163-ced6-4ee9-8ce2-beb57f2065a0.jpg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        color: black;
+        font-family: Arial, sans-serif;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      /* Hộp chứa nội dung */
+      .container {
+        max-width: 850px;
+        background: rgba(255, 255, 255, 0.75); /* Trắng mờ hơn */
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        text-align: center;
+      }
+
+      /* Tiêu đề */
+      h1 {
+        font-size: 28px;
+        color: black;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+      }
+
+      h3 {
+        font-size: 20px;
+        margin-bottom: 15px;
+        color: black;
+      }
+
+      /* Ô nhập nội dung */
+      textarea {
+        width: 95%;
+        height: 120px;
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 8px;
+        border: 1px solid gray;
+        outline: none;
+        resize: none;
+        background-color: rgba(180, 180, 180, 0.7); /* Xám đậm hơn */
+        color: black;
+        box-shadow: inset 0px 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      /* Nút đăng bài */
+      button {
+        margin-top: 10px;
+        padding: 12px 25px;
+        background-color: #ffcc00;
+        color: black;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      button:hover {
+        background-color: #e6b800;
+        transform: scale(1.05);
+      }
+
+      /* Hiển thị bài viết */
+      p {
+        font-size: 16px;
+        text-align: left;
+        padding: 8px;
+        background: rgba(180, 180, 180, 0.7); /* Xám đậm hơn */
+        border-radius: 6px;
+        margin-bottom: 8px;
+        color: black;
+      }
+
+      /* Chữ màu đen cho tên người đăng */
+      strong {
+        color: black;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .container {
+          width: 95%;
+        }
+
+        textarea {
+          width: 100%;
+>>>>>>> 75dcc7f (Cập nhật lần 4)
         }
     </style>
+<<<<<<< HEAD
 </head>
 <body>
 <div class="container">
@@ -295,6 +402,33 @@
         {% else %}
             <p>Chưa có bài viết nào từ người dùng khác.</p>
         {% endif %}
+=======
+  </head>
+  <body>
+    <div class="container">
+      <h1>Chào mừng {{ username }}!</h1>
+
+      <!-- Form đăng bài -->
+      <h3>Hãy chia sẻ món ăn của bạn</h3>
+      <form action="{{ url_for('dashboard') }}" method="GET">
+        <textarea name="content" placeholder="Món ăn bạn muốn chia sẻ là gì?" required></textarea><br />
+        <button type="submit">Đăng bài</button>
+      </form>
+
+      <!-- Hiển thị bài viết của người dùng hiện tại -->
+      <h3>Bài viết của bạn</h3>
+      {% for post in user_posts %}
+        <p>{{ post[1] }} (ID: {{ post[0] }})</p>
+      {% else %}
+        <p>Bạn chưa có bài viết nào.</p>
+      {% endfor %}
+
+      <!-- Hiển thị bài viết của các người dùng khác -->
+      <h3>Các bài viết khác</h3>
+      {% for post in other_posts %}
+        <p><strong>{{ post[1] }}</strong>: {{ post[2] }} (ID: {{ post[0] }})</p>
+      {% endfor %}
+>>>>>>> 75dcc7f (Cập nhật lần 4)
     </div>
     <div>
 </body>
