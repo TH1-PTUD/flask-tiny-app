@@ -4,6 +4,9 @@ from wtforms import StringField, PasswordField, SubmitField
 from wtforms.fields.numeric import IntegerField
 from wtforms.validators import DataRequired, Length, EqualTo
 from flask_bcrypt import Bcrypt
+from functools import wraps
+import random
+import string
 import sqlite3
 
 app = Flask(__name__)
@@ -40,14 +43,14 @@ class RegisterForm(FlaskForm):
     user_id = StringField("User ID", validators=[DataRequired(), Length(min=9, max=12)])
     username = StringField('Username', validators=[DataRequired(), Length(min=3, max=20)])
     password = PasswordField('Password', validators=[DataRequired(), Length(min=6)])
-    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    confirm_password = PasswordField('Xác nhận Password', validators=[DataRequired(), EqualTo('password')])
     admin_code = StringField('Admin Code')
     submit = SubmitField('Register')
 
 # Form đăng nhập
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])gigi
+    password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
 
 @app.route('/')
@@ -77,10 +80,10 @@ def register():
                 c.execute("INSERT INTO users (user_id, username, password, role) VALUES (?, ?, ?, ?)",
                           (user_id, username, password, role))
                 conn.commit()
-                flash("Account created successfully!", "success")
+                flash("Tạo tài khoản thành công!", "success")
                 return redirect(url_for('login'))
             except sqlite3.IntegrityError:
-                flash("UserId already exists!", "danger")
+                flash("Id người dùng đã tồn tại!", "danger")
     return render_template('register.html', form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -94,13 +97,13 @@ def login():
             user = c.fetchone()
             if user and bcrypt.check_password_hash(user[0], password):
                 if user[2]:
-                    flash("Your account has been blocked!", "danger")
+                    flash("Tài khoản của bạn đã bị khóa!", "danger")
                     return redirect(url_for('login'))
                 session['username'] = username
                 session['role'] = user[1]
                 return redirect(url_for('dashboard'))
             else:
-                flash("Invalid username or password!", "danger")
+                flash("Tên người dùng hoặc mật khẩu không hợp lệ!", "danger")
     return render_template('login.html')
 
 @app.route('/dashboard')
@@ -151,7 +154,7 @@ def dashboard():
 @app.route('/admin')
 def admin():
     if session.get('role') != 'admin':
-        flash("Unauthorized access!", "danger")
+        flash("Truy cập trái phép!", "danger")
         return redirect(url_for('home'))
 
     # Phân trang cho admin
@@ -172,31 +175,10 @@ def admin():
                            page_admin=page_admin,
                            total_user_pages=total_user_pages,)
 
-@app.route('/block_user/<username>')
-def block_user(username):
-    if session.get('role') == 'admin':
-        with sqlite3.connect(DATABASE) as conn:
-            c = conn.cursor()
-            c.execute("UPDATE users SET is_blocked=1 WHERE username=?", (username,))
-            conn.commit()
-        flash("User blocked successfully!", "success")
-    return redirect(url_for('admin'))
-
-@app.route('/reset_password/<username>')
-def reset_password(username):
-    if session.get('role') == 'admin':
-        new_password = bcrypt.generate_password_hash("default123").decode('utf-8')
-        with sqlite3.connect(DATABASE) as conn:
-            c = conn.cursor()
-            c.execute("UPDATE users SET password=? WHERE username=?", (new_password, username))
-            conn.commit()
-        flash("Password reset successfully!", "success")
-    return redirect(url_for('admin'))
-
 @app.route('/create_post', methods=['POST'])
 def create_post():
     if 'username' not in session:
-        flash("Please log in first!", "warning")
+        flash("Vui lòng đăng nhập!", "warning")
         return redirect(url_for('login'))
     title = request.form.get('title')
     content = request.form.get('content')
@@ -211,7 +193,7 @@ def create_post():
             c.execute("INSERT INTO posts (username, title, content, image_url) VALUES (?, ?, ?, ?)",
                       (session['username'], title, content, image_url))
             conn.commit()
-        flash("Post created successfully!", "success")
+        flash("Đã đăng tải bài viếtviết!", "success")
     except sqlite3.Error as e:
         flash(f"Error: {e}", "danger")
     return redirect(url_for('dashboard'))
@@ -219,7 +201,7 @@ def create_post():
 @app.route('/edit_post/<int:post_id>', methods=['GET', 'POST'])
 def edit_post(post_id):
     if 'username' not in session:
-        flash("Please log in first!", "warning")
+        flash("Vui lòng đăng nhập!", "warning")
         return redirect(url_for('login'))
 
     with sqlite3.connect(DATABASE) as conn:
@@ -234,30 +216,91 @@ def edit_post(post_id):
                 c = conn.cursor()
                 c.execute("UPDATE posts SET content=? WHERE post_id=?", (new_content, post_id))
                 conn.commit()
-            flash("Post updated successfully!", "success")
+            flash("Bài viết đã cập nhật thành côngcông!", "success")
             return redirect(url_for('dashboard'))
         return render_template('edit_post.html', post=post)
-    flash("Unauthorized action!", "danger")
+    flash("Hành động trái phépphép!", "danger")
     return redirect(url_for('dashboard'))
 
 @app.route('/delete_post/<int:post_id>')
 def delete_post(post_id):
     if 'username' not in session:
-        flash("Please log in first!", "warning")
+        flash("Vui lòng đăng nhập!", "warning")
         return redirect(url_for('login'))
     with sqlite3.connect(DATABASE) as conn:
         c = conn.cursor()
         c.execute("DELETE FROM posts WHERE post_id=? AND user=?", (post_id, session['username']))
         conn.commit()
-    flash("Post deleted successfully!", "success")
+    flash("Xóa bài viết thành công!", "success")
     return redirect(url_for('dashboard'))
 
 @app.route('/logout')
 def logout():
     session.clear()
-    flash("You have been logged out.", "info")
+    flash("Bạn đã đăng xuất.", "info")
     return redirect(url_for('home'))
+
+# Decorator kiểm tra quyền admin
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if session.get('role') != 'admin':
+            flash("Truy cập trái phép!", "danger")
+            return redirect(url_for('home'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+# API khóa/mở khóa user
+def toggle_block_user(username):
+    if session.get('role') == 'admin':
+        with sqlite3.connect(DATABASE) as conn:
+            c = conn.cursor()
+            c.execute("SELECT is_blocked FROM users WHERE username=?", (username,))
+            user = c.fetchone()
+            if user:
+                new_status = 0 if user[0] else 1
+                c.execute("UPDATE users SET is_blocked=? WHERE username=?", (new_status, username))
+                conn.commit()
+                status_text = "unblocked" if new_status == 0 else "blocked"
+                flash(f"User {status_text} successfully!", "success")
+    return redirect(url_for('admin'))
+
+@app.route('/block_user/<username>')
+@admin_required
+def block_user(username):
+    return toggle_block_user(username)
+
+@app.route('/unblock_user/<username>')
+@admin_required
+def unblock_user(username):
+    return toggle_block_user(username)
+
+@app.route('/reset_password', methods=['GET', 'POST'])
+def reset_password():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        new_password = request.form.get('new_password')
+        confirm_password = request.form.get('confirm_password')
+
+        if new_password != confirm_password:
+            flash("Mật khẩu không khớp!", "danger")
+            return redirect(url_for('reset_password'))
+
+        with sqlite3.connect(DATABASE) as conn:
+            c = conn.cursor()
+            c.execute("SELECT * FROM users WHERE username=?", (username,))
+            user = c.fetchone()
+
+            if user:
+                hashed_password = bcrypt.generate_password_hash(new_password).decode('utf-8')
+                c.execute("UPDATE users SET password=? WHERE username=?", (hashed_password, username))
+                conn.commit()
+                flash("Đặt lại mật khẩu thành công!", "success")
+                return redirect(url_for('login'))
+            else:
+                flash("Tên người dùng không tồn tại!", "danger")
+
+    return render_template('reset_password.html')
 
 if __name__ == "__main__":
     app.run(debug=True)
-    

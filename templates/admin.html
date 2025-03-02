@@ -1,25 +1,37 @@
+{% extends "base.html" %}
+
 {% block title %}Quản lý User{% endblock %}
 
 {% block content %}
-    <h2>Quản lý người dùng</h2>
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Tên đăng nhập</th>
-            <th>Trạng thái</th>
-            <th>Hành động</th>
-        </tr>
-        {% for user in users %}
-        <tr>
-            <td>{{ user.user_id }}</td>
-            <td>{{ user.username }}</td>
-            <td>{{ "Bị khóa" if user.is_blocked else "Hoạt động" }}</td>
-{#            <td>#}
-{#                <a href="{{ url_for('block_user', user_id=user.id) }}">Khóa</a> |#}
-{#                <a href="{{ url_for('unblock_user', user_id=user.id) }}">Mở khóa</a> |#}
-{#                <a href="{{ url_for('reset_password', user_id=user.id) }}">Reset mật khẩu</a>#}
-{#            </td>#}
-        </tr>
-        {% endfor %}
+    <h2 class="title">Quản lý Người Dùng</h2>
+
+    <table class="user-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tên Đăng Nhập</th>
+                <th>Trạng Thái</th>
+                <th>Hành Động</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user[0] }}</td> <!-- user_id -->
+                <td>{{ user[1] }}</td> <!-- username -->
+                <td class="status {{ 'blocked' if user[4] == 1 else 'active' }}">
+                    {{ "🔒 Bị khóa" if user[4] == 1 else "✅ Hoạt động" }}
+                </td>
+                <td>
+                    {% if user[4] == 1 %}
+                        <a href="{{ url_for('unblock_user', username=user[1]) }}" class="button unblock">🔓 Mở khóa</a>
+                    {% else %}
+                        <a href="{{ url_for('block_user', username=user[1]) }}" class="button block">🚫 Khóa</a>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
+
 {% endblock %}

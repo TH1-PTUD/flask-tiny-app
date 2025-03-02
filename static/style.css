@@ -106,3 +106,94 @@ nav a:hover {
         padding: 15px;
     }
 }
+
+/* Tiêu đề - Đổi thành màu trắng */
+.title {
+    text-align: center;
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: white; /* Đổi thành trắng */
+    background: #007BFF;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+/* Bảng */
+.user-table {
+    width: 80%;
+    margin: 0 auto;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.user-table thead {
+    background: #007BFF;
+    color: white;
+}
+
+.user-table th, .user-table td {
+    padding: 12px;
+    text-align: center;
+border-bottom: 1px solid #ddd;
+}
+
+/* ID & Tên đăng nhập - Đổi thành màu đen */
+.user-table td:first-child, /* ID */
+.user-table td:nth-child(2) { /* Tên đăng nhập */
+    color: black;
+}
+
+/* Hover hiệu ứng */
+.user-table tr:hover {
+    background: #f5f5f5;
+}
+
+/* Trạng thái */
+.status {
+    font-weight: bold;
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.status.blocked {
+    color: red;
+}
+
+.status.active {
+    color: green;
+}
+
+/* Nút hành động */
+.button {
+    padding: 8px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+/* Nút khóa */
+.button.block {
+    background: #dc3545;
+    color: white;
+}
+
+.button.block:hover {
+    background: #c82333;
+}
+
+/* Nút mở khóa */
+.button.unblock {
+    background: #28a745;
+    color: white;
+}
+
+.button.unblock:hover {
+    background: #218838;
+}
