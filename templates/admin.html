@@ -28,6 +28,7 @@
                     {% else %}
                         <a href="{{ url_for('block_user', username=user[1]) }}" class="button block">🚫 Khóa</a>
                     {% endif %}
+                    <a href="{{ url_for('reset_password', username=user[1]) }}" class="button reset">🔄 Đặt lại mật khẩu</a>
                 </td>
             </tr>
             {% endfor %}
