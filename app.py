@@ -193,7 +193,7 @@ def create_post():
             c.execute("INSERT INTO posts (username, title, content, image_url) VALUES (?, ?, ?, ?)",
                       (session['username'], title, content, image_url))
             conn.commit()
-        flash("Đã đăng tải bài viếtviết!", "success")
+        flash("Đã đăng tải bài viết!", "success")
     except sqlite3.Error as e:
         flash(f"Error: {e}", "danger")
     return redirect(url_for('dashboard'))
@@ -219,7 +219,7 @@ def edit_post(post_id):
             flash("Bài viết đã cập nhật thành côngcông!", "success")
             return redirect(url_for('dashboard'))
         return render_template('edit_post.html', post=post)
-    flash("Hành động trái phépphép!", "danger")
+    flash("Hành động trái phép!", "danger")
     return redirect(url_for('dashboard'))
 
 @app.route('/delete_post/<int:post_id>')
