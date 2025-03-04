@@ -210,6 +210,7 @@ def edit_post(post_id):
         c.execute("SELECT post_id, username, title, content, image_url FROM posts WHERE post_id=?", (post_id,))
         post = c.fetchone()
 
+ myduynn
     if not post:
         flash("Bài viết không tồn tại!", "danger")
         return redirect(url_for('dashboard'))
@@ -236,6 +237,7 @@ def edit_post(post_id):
             conn.commit()
         flash("Bài viết đã được cập nhật thành công!", "success")
         return redirect(url_for('dashboard'))
+ main
 
     # Với GET, render template sửa bài với dữ liệu hiện tại của bài viết
     return render_template('edit_post.html', post=post)
