@@ -204,35 +204,76 @@ def edit_post(post_id):
         flash("Vui lòng đăng nhập!", "warning")
         return redirect(url_for('login'))
 
+    # Truy vấn toàn bộ thông tin của bài viết
     with sqlite3.connect(DATABASE) as conn:
         c = conn.cursor()
-        c.execute("SELECT content FROM posts WHERE post_id=?", (post_id,))
+        c.execute("SELECT post_id, username, title, content, image_url FROM posts WHERE post_id=?", (post_id,))
         post = c.fetchone()
 
-    if post and session['username'] == post[0]:
-        if request.method == 'POST':
-            new_content = request.form.get('content')
-            with sqlite3.connect(DATABASE) as conn:
-                c = conn.cursor()
-                c.execute("UPDATE posts SET content=? WHERE post_id=?", (new_content, post_id))
-                conn.commit()
-            flash("Bài viết đã cập nhật thành côngcông!", "success")
-            return redirect(url_for('dashboard'))
-        return render_template('edit_post.html', post=post)
-    flash("Hành động trái phép!", "danger")
-    return redirect(url_for('dashboard'))
+ myduynn
+    if not post:
+        flash("Bài viết không tồn tại!", "danger")
+        return redirect(url_for('dashboard'))
 
-@app.route('/delete_post/<int:post_id>')
+    # Kiểm tra chủ sở hữu của bài viết
+    if session['username'] != post[1]:
+        flash("Hành động trái phép!", "danger")
+        return redirect(url_for('dashboard'))
+
+    if request.method == 'POST':
+        new_title = request.form.get('title')
+        new_content = request.form.get('content')
+        image = request.files.get('image')
+        # Nếu có upload ảnh mới, cập nhật ảnh; nếu không thì giữ ảnh cũ
+        new_image_url = post[4]
+        if image and image.filename != "":
+            new_image_url = f"/static/uploads/{image.filename}"
+            image.save(f"static/uploads/{image.filename}")
+
+        with sqlite3.connect(DATABASE) as conn:
+            c = conn.cursor()
+            c.execute("UPDATE posts SET title=?, content=?, image_url=? WHERE post_id=?",
+                      (new_title, new_content, new_image_url, post_id))
+            conn.commit()
+        flash("Bài viết đã được cập nhật thành công!", "success")
+        return redirect(url_for('dashboard'))
+ main
+
+    # Với GET, render template sửa bài với dữ liệu hiện tại của bài viết
+    return render_template('edit_post.html', post=post)
+
+
+@app.route('/delete_post/<int:post_id>', methods=['GET', 'POST'])
 def delete_post(post_id):
     if 'username' not in session:
         flash("Vui lòng đăng nhập!", "warning")
         return redirect(url_for('login'))
+
+    # Lấy thông tin bài viết cần xóa
     with sqlite3.connect(DATABASE) as conn:
         c = conn.cursor()
-        c.execute("DELETE FROM posts WHERE post_id=? AND user=?", (post_id, session['username']))
-        conn.commit()
-    flash("Xóa bài viết thành công!", "success")
-    return redirect(url_for('dashboard'))
+        c.execute("SELECT post_id, username, title FROM posts WHERE post_id=?", (post_id,))
+        post = c.fetchone()
+
+    if not post:
+        flash("Bài viết không tồn tại!", "danger")
+        return redirect(url_for('dashboard'))
+
+    # Kiểm tra chủ sở hữu của bài viết
+    if session['username'] != post[1]:
+        flash("Hành động trái phép!", "danger")
+        return redirect(url_for('dashboard'))
+
+    if request.method == 'POST':
+        with sqlite3.connect(DATABASE) as conn:
+            c = conn.cursor()
+            c.execute("DELETE FROM posts WHERE post_id=? AND username=?", (post_id, session['username']))
+            conn.commit()
+        flash("Xóa bài viết thành công!", "success")
+        return redirect(url_for('dashboard'))
+
+    # Với GET, render trang xác nhận xóa bài viết
+    return render_template('delete_post.html', post=post)
 
 @app.route('/logout')
 def logout():
@@ -301,6 +342,7 @@ def reset_password():
                 flash("Tên người dùng không tồn tại!", "danger")
 
     return render_template('reset_password.html')
+
 
 if __name__ == "__main__":
     app.run(debug=True)

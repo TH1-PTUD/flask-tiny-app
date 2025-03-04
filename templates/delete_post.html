@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Xóa bài viết</title>
+  <style>
+    /* Cài đặt nền và căn giữa toàn bộ trang */
+    body {
+      background-image: url('https://st.ielts-fighter.com/src/ielts-fighter-image/2023/07/21/0862c163-ced6-4ee9-8ce2-beb57f2065a0.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    /* Khối chứa nội dung */
+    .container {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 28px;
+      color: #333;
+    }
+
+    p {
+      font-size: 18px;
+      color: #555;
+      margin-bottom: 30px;
+    }
+
+    /* Nút Xóa bài viết: màu xanh dương */
+    button {
+      padding: 12px 25px;
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      margin: 0 10px 10px 10px;
+    }
+    button:hover {
+      background-color: #0056b3;
+      transform: scale(1.05);
+    }
+
+    /* Nút Hủy: màu xám */
+    .cancel-button {
+      background-color: #6c757d;
+      text-decoration: none;
+      color: #fff;
+      padding: 12px 25px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      display: inline-block;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+      margin: 0 10px 10px 10px;
+    }
+    .cancel-button:hover {
+      background-color: #5a6268;
+      transform: scale(1.05);
+    }
+
+    /* Nhóm nút để căn giữa */
+    .button-group {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Xóa bài viết</h1>
+    <p>Bạn có chắc chắn muốn xóa bài viết này không?</p>
+    <div class="button-group">
+      <form action="{{ url_for('delete_post', post_id=post[0]) }}" method="POST">
+        <button type="submit">Xóa bài viết</button>
+      </form>
+      <a href="{{ url_for('dashboard') }}" class="cancel-button">Hủy</a>
+    </div>
+  </div>
+</body>
+</html>
+

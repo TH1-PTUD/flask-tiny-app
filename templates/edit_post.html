@@ -1,21 +1,115 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chỉnh sửa bài viết</title>
+ myduynn
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sửa bài viết</title>
+  <style>
+    /* Nền trang */
+    body {
+      background-image: url('https://st.ielts-fighter.com/src/ielts-fighter-image/2023/07/21/0862c163-ced6-4ee9-8ce2-beb57f2065a0.jpg');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      background-repeat: no-repeat;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px; /* Cho phép trang cuộn và có khoảng trắng */
+    }
+
+    /* Khối chứa form */
+    .container {
+      width: 90%;
+      max-width: 600px;
+      margin: 40px auto; /* Căn giữa khối theo chiều ngang, có khoảng cách trên/dưới */
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Tiêu đề */
+    h1 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: #333;
+    }
+
+    /* Form: Flexbox để canh nhãn và ô nhập liệu sang trái */
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start; /* Đẩy tất cả label/input sang trái */
+    }
+
+    label {
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #555;
+      text-align: left;
+    }
+
+    /* Trường nhập liệu */
+    input[type="text"],
+    textarea,
+    input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    /* Nút Lưu thay đổi */
+    button {
+      align-self: center; /* Riêng nút thì căn giữa trong form */
+      padding: 12px;
+      background-color: #007BFF; /* Xanh dương */
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+    button:hover {
+      background-color: #0056b3;
+      transform: scale(1.02);
+    }
+
+    /* Liên kết Quay lại Dashboard */
+    a {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #333;
+      font-size: 16px;
+    }
+  </style>
 </head>
 <body>
-    <h2>Chỉnh sửa bài viết</h2>
-    <form action="{{ url_for('update_post', post_id=post[0]) }}" method="POST">
-        <label for="title">Tiêu đề:</label>
-        <input type="text" name="title" value="{{ post[1] }}" required><br><br>
-
-        <label for="content">Nội dung:</label>
-        <textarea name="content" required>{{ post[2] }}</textarea><br><br>
-
-        <button type="submit">Cập nhật</button>
-        <a href="{{ url_for('dashboard') }}">Hủy</a>
+  <div class="container">
+    <h1>Sửa bài viết</h1>
+    <form action="{{ url_for('edit_post', post_id=post[0]) }}" method="POST" enctype="multipart/form-data">
+      <label for="title">Tiêu đề bài viết:</label>
+      <input type="text" id="title" name="title" value="{{ post[1] }}" required>
+      
+      <label for="content">Nội dung bài viết:</label>
+      <textarea id="content" name="content" rows="6" required>{{ post[2] }}</textarea>
+      
+      <label for="image">Ảnh bài viết (chọn để thay đổi):</label>
+      <input type="file" id="image" name="image" accept="image/*">
+      
+      <button type="submit">Lưu thay đổi</button>
     </form>
+    <a href="{{ url_for('dashboard') }}">Quay lại Dashboard</a>
+  </div>
 </body>
 </html>
+
+ main
