@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8"/>
@@ -74,8 +74,8 @@
         button {
             margin-top: 10px;
             padding: 12px 25px;
-            background-color: #ffcc00;
-            color: black;
+            background-color: #007BFF; /* đổi từ màu vàng sang xanh dương */
+            color: white; /* Đổi chữ từ đen sang trắng */
             border: none;
             border-radius: 8px;
             font-size: 16px;
@@ -87,7 +87,7 @@
         }
 
         button:hover {
-            background-color: #e6b800;
+            background-color: #0056b3; /* đổi từ màu vàng sang xanh dương đậm hơn */
             transform: scale(1.05);
         }
 
@@ -148,8 +148,8 @@
         .admin-button {
             display: inline-block;
             padding: 8px 16px;
-            background-color: #ffcc00;
-            color: black;
+            background-color: #007BFF; /* đổi từ màu vàng sang xanh dương */
+            color: white; /* Đổi chữ từ đen sang trắng */
             border-radius: 8px;
             font-size: 16px;
             font-weight: bold;
@@ -158,15 +158,15 @@
         }
 
         .admin-button:hover {
-            background-color: #e6b800;
+            background-color: #0056b3; /* đổi từ màu vàng sang xanh dương đậm hơn */
             transform: scale(1.05);
         }
 
         .logout-button {
             top: 10px; /* Cách đỉnh 10px */
             right: 10px; /* Cách phải 10px */
-            background-color: #ffcc00; /* Màu vàng giống nút Đăng bài */
-            color: black;
+            background-color: #007BFF; /* đổi từ màu vàng sang xanh dương */
+            color: white; /* Đổi chữ từ đen sang trắng */
             padding: 8px 16px;
             border-radius: 5px;
             text-decoration: none; /* Bỏ gạch chân liên kết */
@@ -174,8 +174,16 @@
         }
 
         .logout-button:hover {
-            background-color: #e6b800; /* Hiệu ứng khi di chuột qua */
+            background-color: #0056b3; /* đổi từ màu vàng sang xanh dương đậm hơn */
             transform: scale(1.05);
+        }
+
+        /* Style cho nút Sửa và Xóa trong bài viết của người dùng */
+        .post-actions {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
         }
 
         /* Responsive */
@@ -232,6 +240,11 @@
                             <img src="{{ post[3] }}" alt="Ảnh bài viết">
                         {% endif %}
                         <p>{{ post[2] }}</p>
+                        <!-- Thêm nút Sửa và Xóa -->
+                        <div class="post-actions">
+                            <a href="{{ url_for('edit_post', post_id=post[0]) }}" class="admin-button">Sửa</a>
+                            <a href="{{ url_for('delete_post', post_id=post[0]) }}" class="logout-button" onclick="return confirm('Bạn có chắc chắn muốn xóa bài viết này?');">Xóa</a>
+                        </div>
                     </div>
                 {% endfor %}
             </div>
@@ -246,7 +259,7 @@
                     {% if p == page_user %}
                         <span>{{ p }}</span>
                     {% else %}
-                        <a href="{{ url_for('dashboard', page_user=p, page_other=page_other) }}">{{ p }}</a>
+                        <a href="{{ url_for('dashboard', page_user=page_user, page_other=page_other) }}">{{ p }}</a>
                     {% endif %}
                 {% endfor %}
 
@@ -299,3 +312,6 @@
     <div>
 </body>
 </html>
+
+
+
