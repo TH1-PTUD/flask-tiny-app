@@ -10,8 +10,16 @@ import string
 import sqlite3
 import os
 from werkzeug.utils import secure_filename
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app, resources={
+    r"/*": {
+        "origins": "*",  # Cho phép từ mọi nguồn
+        "allow_headers": ["Content-Type", "Authorization"],
+        "supports_credentials": True
+    }
+})
 app.config['SECRET_KEY'] = 'linh_duyen_04'
 bcrypt = Bcrypt(app)
 DATABASE = 'database.db'
