@@ -4,3 +4,4 @@ flask_sqlalchemy
 flask_login
 flask_wtf
 flask_bcrypt
+flask-cors==5.0.1
