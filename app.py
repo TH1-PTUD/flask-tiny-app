@@ -8,8 +8,18 @@ from functools import wraps
 import random
 import string
 import sqlite3
+import os
+from werkzeug.utils import secure_filename
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app, resources={
+    r"/*": {
+        "origins": "*",  # Cho phép từ mọi nguồn
+        "allow_headers": ["Content-Type", "Authorization"],
+        "supports_credentials": True
+    }
+})
 app.config['SECRET_KEY'] = 'linh_duyen_04'
 bcrypt = Bcrypt(app)
 DATABASE = 'database.db'
@@ -113,7 +123,7 @@ def dashboard():
 
     # Phân trang cho user_posts
     page_user = request.args.get('page_user', 1, type=int)
-    per_page = 9  # 9 bài mỗi trang
+    per_page = 10  # 10 bài mỗi trang
     offset_user = (page_user - 1) * per_page
 
     with sqlite3.connect(DATABASE) as conn:
@@ -123,8 +133,8 @@ def dashboard():
         total_user_posts = c.fetchone()[0]
         total_user_pages = (total_user_posts + per_page - 1) // per_page
 
-        # Lấy bài viết của người dùng hiện tại
-        c.execute("SELECT post_id, title, content, image_url FROM posts WHERE username = ? ORDER BY post_id DESC LIMIT ? OFFSET ?",
+        # Lấy bài viết của người dùng hiện tại, bao gồm thời gian tạo
+        c.execute("SELECT post_id, title, content, image_url, created_at FROM posts WHERE username = ? ORDER BY post_id DESC LIMIT ? OFFSET ?",
                   (session['username'], per_page, offset_user))
         user_posts = c.fetchall()
 
@@ -137,9 +147,9 @@ def dashboard():
         total_other_posts = c.fetchone()[0]
         total_other_pages = (total_other_posts + per_page - 1) // per_page
 
-        # Lấy bài viết của người dùng khác
+        # Lấy bài viết của người dùng khác, bao gồm thời gian tạo
         c.execute(
-            "SELECT post_id, username, title, content, image_url FROM posts WHERE username != ? ORDER BY post_id DESC LIMIT ? OFFSET ?",
+            "SELECT post_id, username, title, content, image_url, created_at FROM posts WHERE username != ? ORDER BY post_id DESC LIMIT ? OFFSET ?",
             (session['username'], per_page, offset_other))
         other_posts = c.fetchall()
 
@@ -204,44 +214,68 @@ def edit_post(post_id):
         flash("Vui lòng đăng nhập!", "warning")
         return redirect(url_for('login'))
 
+    # Ensure uploads directory exists
+    os.makedirs('static/uploads', exist_ok=True)
+
     # Truy vấn toàn bộ thông tin của bài viết
     with sqlite3.connect(DATABASE) as conn:
         c = conn.cursor()
         c.execute("SELECT post_id, username, title, content, image_url FROM posts WHERE post_id=?", (post_id,))
         post = c.fetchone()
 
- myduynn
-    if not post:
-        flash("Bài viết không tồn tại!", "danger")
-        return redirect(url_for('dashboard'))
+        if not post:
+            flash("Bài viết không tồn tại!", "danger")
+            return redirect(url_for('dashboard'))
 
-    # Kiểm tra chủ sở hữu của bài viết
-    if session['username'] != post[1]:
-        flash("Hành động trái phép!", "danger")
-        return redirect(url_for('dashboard'))
+        # Kiểm tra chủ sở hữu của bài viết
+        if session['username'] != post[1]:
+            flash("Hành động trái phép!", "danger")
+            return redirect(url_for('dashboard'))
 
-    if request.method == 'POST':
-        new_title = request.form.get('title')
-        new_content = request.form.get('content')
-        image = request.files.get('image')
-        # Nếu có upload ảnh mới, cập nhật ảnh; nếu không thì giữ ảnh cũ
-        new_image_url = post[4]
-        if image and image.filename != "":
-            new_image_url = f"/static/uploads/{image.filename}"
-            image.save(f"static/uploads/{image.filename}")
+        if request.method == 'POST':
+            new_title = request.form.get('title', '').strip()
+            new_content = request.form.get('content', '').strip()
+            
+            # Validate input
+            if not new_title or not new_content:
+                flash("Tiêu đề và nội dung không được để trống!", "warning")
+                return render_template('edit_post.html', post=post)
 
-        with sqlite3.connect(DATABASE) as conn:
-            c = conn.cursor()
-            c.execute("UPDATE posts SET title=?, content=?, image_url=? WHERE post_id=?",
-                      (new_title, new_content, new_image_url, post_id))
-            conn.commit()
-        flash("Bài viết đã được cập nhật thành công!", "success")
-        return redirect(url_for('dashboard'))
- main
+            image = request.files.get('image')
+            
+            # Nếu có upload ảnh mới, cập nhật ảnh; nếu không thì giữ ảnh cũ
+            new_image_url = post[4]
+            if image and image.filename != "":
+                try:
+                    # Sử dụng secure_filename để tránh các tên file độc hại
+                    filename = secure_filename(image.filename)
+                    new_image_url = f"/static/uploads/{filename}"
+                    
+                    # Kiểm tra kích thước file
+                    image.seek(0, os.SEEK_END)
+                    file_size = image.tell()
+                    image.seek(0)
+                    
+                    if file_size > 5 * 1024 * 1024:  # Giới hạn 5MB
+                        flash("Kích thước ảnh quá lớn. Vui lòng chọn ảnh dưới 5MB.", "warning")
+                        return render_template('edit_post.html', post=post)
+                    
+                    image.save(os.path.join('static/uploads', filename))
+                except Exception as e:
+                    flash(f"Lỗi upload ảnh: {str(e)}", "danger")
+                    return render_template('edit_post.html', post=post)
 
+            with sqlite3.connect(DATABASE) as conn:
+                c = conn.cursor()
+                c.execute("UPDATE posts SET title=?, content=?, image_url=? WHERE post_id=?",
+                          (new_title, new_content, new_image_url, post_id))
+                conn.commit()
+            
+            flash("Bài viết đã được cập nhật thành công!", "success")
+            return redirect(url_for('dashboard'))
+    
     # Với GET, render template sửa bài với dữ liệu hiện tại của bài viết
     return render_template('edit_post.html', post=post)
-
 
 @app.route('/delete_post/<int:post_id>', methods=['GET', 'POST'])
 def delete_post(post_id):
@@ -275,8 +309,14 @@ def delete_post(post_id):
     # Với GET, render trang xác nhận xóa bài viết
     return render_template('delete_post.html', post=post)
 
-@app.route('/logout')
+@app.route('/confirm_logout')
+def confirm_logout():
+    """Hiển thị trang xác nhận đăng xuất"""
+    return render_template('confirm_logout.html')
+
+@app.route('/logout', methods=['POST'])
 def logout():
+    """Xóa session và chuyển về trang chủ sau khi đăng xuất"""
     session.clear()
     flash("Bạn đã đăng xuất.", "info")
     return redirect(url_for('home'))
@@ -342,7 +382,6 @@ def reset_password():
                 flash("Tên người dùng không tồn tại!", "danger")
 
     return render_template('reset_password.html')
-
 
 if __name__ == "__main__":
     app.run(debug=True)

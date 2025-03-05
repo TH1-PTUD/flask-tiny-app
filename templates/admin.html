@@ -5,11 +5,16 @@
 {% block content %}
 <div class="admin-container">
     <h2 class="title">QUẢN LÝ NGƯỜI DÙNG</h2>
+<div class="admin-container">
+    <h2 class="title">QUẢN LÝ NGƯỜI DÙNG</h2>
 
     <table class="user-table">
         <thead>
             <tr>
                 <th>ID</th>
+                <th>Tên đăng nhập</th>
+                <th>Trạng thái</th>
+                <th>Hành động</th>
                 <th>Tên đăng nhập</th>
                 <th>Trạng thái</th>
                 <th>Hành động</th>
@@ -24,8 +29,20 @@
                     <span class="status {{ 'blocked' if user[4] == 1 else 'active' }}">
                         {{ "Bị khóa" if user[4] == 1 else "Hoạt động" }}
                     </span>
+                <td>
+                    <span class="status {{ 'blocked' if user[4] == 1 else 'active' }}">
+                        {{ "Bị khóa" if user[4] == 1 else "Hoạt động" }}
+                    </span>
                 </td>
                 <td>
+                    <div class="action-buttons">
+                        {% if user[4] == 1 %}
+                            <a href="{{ url_for('unblock_user', username=user[1]) }}" class="button unblock">Mở khóa</a>
+                        {% else %}
+                            <a href="{{ url_for('block_user', username=user[1]) }}" class="button block">Khóa</a>
+                        {% endif %}
+                        <a href="{{ url_for('reset_password', username=user[1]) }}" class="button reset">Đặt lại mật khẩu</a>
+                    </div>
                     <div class="action-buttons">
                         {% if user[4] == 1 %}
                             <a href="{{ url_for('unblock_user', username=user[1]) }}" class="button unblock">Mở khóa</a>
@@ -39,6 +56,170 @@
             {% endfor %}
         </tbody>
     </table>
+</div>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap');
+
+body {
+    font-family: 'Quicksand', sans-serif;
+    color: #333;
+}
+
+/* Container chính */
+.admin-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+/* Tiêu đề */
+.title {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 600;
+    color: #f5f0f0;
+    padding: 15px;
+    background: none; /* Xóa màu nền */
+}
+
+/* Bảng */
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Thanh tiêu đề bảng */
+.user-table th {
+    background: #2c2929;
+    font-weight: 500;
+    padding: 14px;
+    text-align: center;
+}
+
+/* Hàng dữ liệu */
+.user-table td {
+    padding: 14px;
+    text-align: center;
+    border-bottom: 1px solid #0e0d0d;
+    word-wrap: break-word;
+}
+
+/* Hiệu ứng hover */
+.user-table tr:hover {
+    background: #f8f9fa;
+}
+
+/* Trạng thái */
+.status {
+    font-weight: 600;
+    font-size: 18px;
+    padding: 6px 10px;
+    border-radius: 5px;
+    display: inline-block;
+}
+
+.status.active {
+    color: #28a745;
+}
+
+.status.blocked {
+    color: #dc3545;
+}
+
+/* Căn chỉnh container chứa các nút */
+.action-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Khoảng cách giữa các nút */
+    flex-wrap: wrap; /* Không cho xuống hàng trên desktop */
+}
+
+/* Định dạng nút chung */
+.button {
+    min-width: 110px;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 4px;
+    text-align: center;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Nút Khóa */
+.button.block {
+    background: #e74c3c;
+    color: white;
+}
+
+.button.block:hover {
+    background: #c0392b;
+}
+
+/* Nút Đặt lại mật khẩu */
+.button.reset {
+    background: #3498db;
+    color: white;
+}
+
+.button.reset:hover {
+    background: #217dbb;
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
+    .admin-container {
+        padding: 0 15px;
+    }
+    
+    .title {
+        font-size: 28px;
+        margin-bottom: 20px;
+    }
+    
+    .user-table th, 
+    .user-table td {
+        padding: 12px 10px;
+        font-size: 14px;
+    }
+    
+    .action-buttons {
+        flex-direction: column; /* Chuyển các nút thành cột trên màn hình nhỏ */
+    }
+    
+    .button {
+        padding: 8px 12px;
+        font-size: 13px;
+        margin-bottom: 5px;
+    }
+    
+    .status {
+        font-size: 12px;
+        padding: 6px 10px;
+        min-width: 100px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .user-table {
+        display: block;
+        overflow-x: auto;
+    }
+    
+    .title {
+        font-size: 24px;
+    }
+    
+    .button {
+        min-width: 120px;
+    }
+}
+</style>
 </div>
 
 <style>
