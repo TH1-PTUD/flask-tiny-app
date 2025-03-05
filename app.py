@@ -11,8 +11,6 @@ import sqlite3
 import os
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
-from werkzeug.security import generate_password_hash
-
 
 app = Flask(__name__)
 CORS(app, resources={
@@ -24,8 +22,7 @@ CORS(app, resources={
 })
 app.config['SECRET_KEY'] = 'linh_duyen_04'
 bcrypt = Bcrypt(app)
-# Đường dẫn cố định cho database
-DATABASE = os.path.join(os.path.dirname(__file__), "database.db")
+DATABASE = 'database.db'
 
 # Khởi tạo database
 def init_db():
@@ -83,24 +80,20 @@ def register():
     if form.validate_on_submit():
         user_id = form.user_id.data
         username = form.username.data
-        password = generate_password_hash(form.password.data)
+        password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
         admin_code = form.admin_code.data
 
         role = determine_role(admin_code)
-
-        try:
-            with sqlite3.connect(DATABASE) as conn:
-                c = conn.cursor()
+        with sqlite3.connect(DATABASE) as conn:
+            c = conn.cursor()
+            try:
                 c.execute("INSERT INTO users (user_id, username, password, role) VALUES (?, ?, ?, ?)",
                           (user_id, username, password, role))
-                conn.commit()  # Đảm bảo dữ liệu được lưu vào database
+                conn.commit()
                 flash("Tạo tài khoản thành công!", "success")
                 return redirect(url_for('login'))
-        except sqlite3.IntegrityError:
-            flash("ID người dùng đã tồn tại!", "danger")
-        except Exception as e:
-            flash(f"Lỗi: {str(e)}", "danger")
-
+            except sqlite3.IntegrityError:
+                flash("Id người dùng đã tồn tại!", "danger")
     return render_template('register.html', form=form)
 
 @app.route('/login', methods=['GET', 'POST'])
