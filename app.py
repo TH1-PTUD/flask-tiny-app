@@ -123,8 +123,8 @@ def dashboard():
         total_user_posts = c.fetchone()[0]
         total_user_pages = (total_user_posts + per_page - 1) // per_page
 
-        # Lấy bài viết của người dùng hiện tại
-        c.execute("SELECT post_id, title, content, image_url FROM posts WHERE username = ? ORDER BY post_id DESC LIMIT ? OFFSET ?",
+        # Lấy bài viết của người dùng hiện tại, bao gồm thời gian tạo
+        c.execute("SELECT post_id, title, content, image_url, created_at FROM posts WHERE username = ? ORDER BY post_id DESC LIMIT ? OFFSET ?",
                   (session['username'], per_page, offset_user))
         user_posts = c.fetchall()
 
@@ -137,9 +137,9 @@ def dashboard():
         total_other_posts = c.fetchone()[0]
         total_other_pages = (total_other_posts + per_page - 1) // per_page
 
-        # Lấy bài viết của người dùng khác
+        # Lấy bài viết của người dùng khác, bao gồm thời gian tạo
         c.execute(
-            "SELECT post_id, username, title, content, image_url FROM posts WHERE username != ? ORDER BY post_id DESC LIMIT ? OFFSET ?",
+            "SELECT post_id, username, title, content, image_url, created_at FROM posts WHERE username != ? ORDER BY post_id DESC LIMIT ? OFFSET ?",
             (session['username'], per_page, offset_other))
         other_posts = c.fetchall()
 
