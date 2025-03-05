@@ -210,20 +210,19 @@ def edit_post(post_id):
         c.execute("SELECT post_id, username, title, content, image_url FROM posts WHERE post_id=?", (post_id,))
         post = c.fetchone()
 
- myduynn
-    if not post:
-        flash("Bài viết không tồn tại!", "danger")
-        return redirect(url_for('dashboard'))
+        if not post:
+            flash("Bài viết không tồn tại!", "danger")
+            return redirect(url_for('dashboard'))
 
-    # Kiểm tra chủ sở hữu của bài viết
-    if session['username'] != post[1]:
-        flash("Hành động trái phép!", "danger")
-        return redirect(url_for('dashboard'))
+        # Kiểm tra chủ sở hữu của bài viết
+        if session['username'] != post[1]:
+            flash("Hành động trái phép!", "danger")
+            return redirect(url_for('dashboard'))
 
-    if request.method == 'POST':
-        new_title = request.form.get('title')
-        new_content = request.form.get('content')
-        image = request.files.get('image')
+        if request.method == 'POST':
+            new_title = request.form.get('title')
+            new_content = request.form.get('content')
+            image = request.files.get('image')
         # Nếu có upload ảnh mới, cập nhật ảnh; nếu không thì giữ ảnh cũ
         new_image_url = post[4]
         if image and image.filename != "":
@@ -237,8 +236,7 @@ def edit_post(post_id):
             conn.commit()
         flash("Bài viết đã được cập nhật thành công!", "success")
         return redirect(url_for('dashboard'))
- main
-
+    
     # Với GET, render template sửa bài với dữ liệu hiện tại của bài viết
     return render_template('edit_post.html', post=post)
 
