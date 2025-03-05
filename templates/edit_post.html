@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
- myduynn
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sửa bài viết</title>
@@ -15,14 +14,14 @@
       background-repeat: no-repeat;
       font-family: Arial, sans-serif;
       margin: 0;
-      padding: 20px; /* Cho phép trang cuộn và có khoảng trắng */
+      padding: 20px;
     }
 
     /* Khối chứa form */
     .container {
       width: 90%;
       max-width: 600px;
-      margin: 40px auto; /* Căn giữa khối theo chiều ngang, có khoảng cách trên/dưới */
+      margin: 40px auto;
       background: rgba(255, 255, 255, 0.9);
       padding: 30px;
       border-radius: 12px;
@@ -40,7 +39,7 @@
     form {
       display: flex;
       flex-direction: column;
-      align-items: flex-start; /* Đẩy tất cả label/input sang trái */
+      align-items: flex-start;
     }
 
     label {
@@ -65,9 +64,9 @@
 
     /* Nút Lưu thay đổi */
     button {
-      align-self: center; /* Riêng nút thì căn giữa trong form */
-      padding: 12px;
-      background-color: #007BFF; /* Xanh dương */
+      align-self: center;
+      padding: 12px 24px;
+      background-color: #007BFF;
       color: #fff;
       border: none;
       border-radius: 8px;
@@ -90,6 +89,14 @@
       color: #333;
       font-size: 16px;
     }
+
+    /* Hiển thị ảnh hiện tại */
+    .current-image {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 20px;
+      border-radius: 8px;
+    }
   </style>
 </head>
 <body>
@@ -97,10 +104,15 @@
     <h1>Sửa bài viết</h1>
     <form action="{{ url_for('edit_post', post_id=post[0]) }}" method="POST" enctype="multipart/form-data">
       <label for="title">Tiêu đề bài viết:</label>
-      <input type="text" id="title" name="title" value="{{ post[1] }}" required>
+      <input type="text" id="title" name="title" value="{{ post[2] }}" required>
       
       <label for="content">Nội dung bài viết:</label>
-      <textarea id="content" name="content" rows="6" required>{{ post[2] }}</textarea>
+      <textarea id="content" name="content" rows="6" required>{{ post[3] }}</textarea>
+      
+      {% if post[4] %}
+        <label>Ảnh hiện tại:</label>
+        <img src="{{ post[4] }}" alt="Ảnh bài viết" class="current-image">
+      {% endif %}
       
       <label for="image">Ảnh bài viết (chọn để thay đổi):</label>
       <input type="file" id="image" name="image" accept="image/*">
@@ -111,5 +123,3 @@
   </div>
 </body>
 </html>
-
- main
