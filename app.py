@@ -283,31 +283,33 @@ def delete_post(post_id):
         flash("Vui lòng đăng nhập!", "warning")
         return redirect(url_for('login'))
 
+    if request.method == 'GET':
+        flash("Vui lòng sử dụng nút xóa để thực hiện hành động này!", "warning")
+        return redirect(url_for('dashboard'))
+
     # Lấy thông tin bài viết cần xóa
     with sqlite3.connect(DATABASE) as conn:
         c = conn.cursor()
-        c.execute("SELECT post_id, username, title FROM posts WHERE post_id=?", (post_id,))
+        c.execute("SELECT post_id, username FROM posts WHERE post_id=?", (post_id,))
         post = c.fetchone()
 
     if not post:
         flash("Bài viết không tồn tại!", "danger")
         return redirect(url_for('dashboard'))
 
-    # Kiểm tra chủ sở hữu của bài viết
+    # Kiểm tra quyền sở hữu
     if session['username'] != post[1]:
         flash("Hành động trái phép!", "danger")
         return redirect(url_for('dashboard'))
 
-    if request.method == 'POST':
-        with sqlite3.connect(DATABASE) as conn:
-            c = conn.cursor()
-            c.execute("DELETE FROM posts WHERE post_id=? AND username=?", (post_id, session['username']))
-            conn.commit()
-        flash("Xóa bài viết thành công!", "success")
-        return redirect(url_for('dashboard'))
+    # Xóa bài viết
+    with sqlite3.connect(DATABASE) as conn:
+        c = conn.cursor()
+        c.execute("DELETE FROM posts WHERE post_id=?", (post_id,))
+        conn.commit()
 
-    # Với GET, render trang xác nhận xóa bài viết
-    return render_template('delete_post.html', post=post)
+    flash("Xóa bài viết thành công!", "success")
+    return redirect(url_for('dashboard'))
 
 @app.route('/confirm_logout')
 def confirm_logout():
