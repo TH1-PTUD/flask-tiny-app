@@ -30,6 +30,26 @@
       max-width: 500px;
       width: 100%;
       text-align: center;
+      /* Hiệu ứng fadeIn khi tải trang */
+      animation: fadeIn 0.5s ease-in forwards;
+    }
+
+    /* Keyframes cho hiệu ứng fadeIn kết hợp dịch chuyển */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Lớp fade-out dùng cho hiệu ứng chuyển trang */
+    .fade-out {
+      opacity: 0;
+      transition: opacity 0.5s ease-out;
     }
 
     h1 {
@@ -47,7 +67,7 @@
     /* Nút Đăng xuất: màu xanh dương chuyển sang đỏ */
     button {
       padding: 12px 25px;
-      background-color: #007BFF; /* Màu xanh dương */
+      background-color: #007BFF;
       color: #fff;
       border: none;
       border-radius: 8px;
@@ -58,7 +78,7 @@
       margin: 0 10px 10px 10px;
     }
     button:hover {
-      background-color: #dc3545; /* Chuyển sang đỏ */
+      background-color: #dc3545;
       transform: scale(1.05);
     }
 
@@ -100,5 +120,36 @@
       <a href="{{ url_for('dashboard') }}" class="cancel-button">Hủy</a>
     </div>
   </div>
+
+  <!-- JavaScript cho hiệu ứng chuyển trang mờ dần -->
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      const container = document.querySelector('.container');
+      
+      // Áp dụng hiệu ứng fade-out cho các liên kết (ví dụ nút Hủy)
+      const links = document.querySelectorAll('a');
+      links.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          container.classList.add('fade-out');
+          setTimeout(() => {
+            window.location.href = link.href;
+          }, 500); // 500ms tương ứng với thời gian transition
+        });
+      });
+
+      // Áp dụng hiệu ứng fade-out khi gửi form (ví dụ Đăng xuất)
+      const form = document.querySelector('form');
+      if (form) {
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+          container.classList.add('fade-out');
+          setTimeout(() => {
+            form.submit();
+          }, 500);
+        });
+      }
+    });
+  </script>
 </body>
 </html>

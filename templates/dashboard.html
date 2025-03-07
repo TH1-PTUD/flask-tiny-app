@@ -33,6 +33,26 @@
             border-radius: 12px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             text-align: center;
+            /* Áp dụng hiệu ứng fadeIn khi tải trang */
+            animation: fadeIn 0.5s ease-in forwards;
+        }
+
+        /* Hiệu ứng mờ dần kết hợp với dịch chuyển */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Lớp fade-out dùng cho hiệu ứng chuyển trang */
+        .fade-out {
+            opacity: 0;
+            transition: opacity 0.5s ease-out;
         }
 
         /* Header Button Container */
@@ -286,5 +306,25 @@
         {% endif %}
     </div>
 </div>
+
+<!-- JavaScript cho hiệu ứng chuyển trang mờ dần -->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Lấy tất cả các liên kết phân trang
+    const paginationLinks = document.querySelectorAll('.pagination a');
+    paginationLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            // Thêm lớp fade-out cho container để thực hiện hiệu ứng mờ dần
+            document.querySelector('.container').classList.add('fade-out');
+            // Chờ cho hiệu ứng hoàn thành rồi mới chuyển trang
+            setTimeout(() => {
+                window.location.href = link.href;
+            }, 500); // 500ms tương ứng với thời gian transition
+        });
+    });
+});
+</script>
 </body>
 </html>
+
