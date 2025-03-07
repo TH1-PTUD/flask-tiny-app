@@ -58,4 +58,4 @@ Người dùng có thể thực hiện các chức năng sau:
 
 ## 4. Link dự án đã triển khai
 
-🔗 **Truy cập website tại:** [Flask Tiny App](https://flask-tiny-app-09a6.onrender.com) 🚀
+🔗 **Truy cập website tại:** [Flask Tiny App](http://127.0.0.1:5000) 🚀
