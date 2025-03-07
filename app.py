@@ -11,8 +11,25 @@ import sqlite3
 import os
 from werkzeug.utils import secure_filename
 from flask_cors import CORS
+import datetime
 
 app = Flask(__name__)
+
+# Định nghĩa filter format_date
+def format_date(value, format="%d/%m/%Y %H:%M"):
+    if isinstance(value, datetime.datetime):
+        return value.strftime(format)
+    elif isinstance(value, str):  # Nếu là chuỗi, chuyển đổi trước
+        try:
+            date_obj = datetime.datetime.strptime(value, "%Y-%m-%d %H:%M:%S")
+            return date_obj.strftime(format)
+        except ValueError:
+            return value  # Trả về nguyên chuỗi nếu không thể chuyển đổi
+    return value  # Trả về nguyên giá trị nếu không phải datetime hoặc chuỗi
+
+# Đăng ký filter với Jinja2
+app.jinja_env.filters['format_date'] = format_date
+
 CORS(app, resources={
     r"/*": {
         "origins": "*",  # Cho phép từ mọi nguồn
@@ -185,6 +202,23 @@ def admin():
                            page_admin=page_admin,
                            total_user_pages=total_user_pages,)
 
+@app.route('/setup_db', methods=['GET'])
+def setup_db():
+    try:
+        with sqlite3.connect(DATABASE) as conn:
+            c = conn.cursor()
+            # Kiểm tra xem cột created_at đã tồn tại chưa
+            c.execute("PRAGMA table_info(posts)")
+            columns = [col[1] for col in c.fetchall()]
+            
+            if 'created_at' not in columns:
+                c.execute("ALTER TABLE posts ADD COLUMN created_at TEXT")
+                conn.commit()
+                return "Đã thêm cột created_at vào bảng posts"
+            return "Cột created_at đã tồn tại"
+    except sqlite3.Error as e:
+        return f"Lỗi: {e}"
+    
 @app.route('/create_post', methods=['POST'])
 def create_post():
     if 'username' not in session:
@@ -197,11 +231,16 @@ def create_post():
     if image:
         image_url = f"/static/uploads/{image.filename}"
         image.save(f"static/uploads/{image.filename}")  # Lưu ảnh vào thư mục static/uploads
+        
+    # Thêm thời gian hiện tại
+    import datetime
+    current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
     try:
         with sqlite3.connect(DATABASE) as conn:
             c = conn.cursor()
-            c.execute("INSERT INTO posts (username, title, content, image_url) VALUES (?, ?, ?, ?)",
-                      (session['username'], title, content, image_url))
+            c.execute("INSERT INTO posts (username, title, content, image_url, created_at) VALUES (?, ?, ?, ?, ?)",
+                      (session['username'], title, content, image_url, current_time))
             conn.commit()
         flash("Đã đăng tải bài viết!", "success")
     except sqlite3.Error as e:

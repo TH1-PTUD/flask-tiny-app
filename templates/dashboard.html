@@ -211,7 +211,7 @@
                 {% for post in user_posts %}
                     <div class="post-item">
                         <div class="title-box">{{ post[1] }}</div>
-                        <small class="text-muted">Đăng lúc: {{ post[4] }}</small>
+                        <small class="text-muted">Đăng lúc: {{ post[4]|format_date }}</small>
                         {% if post[3] %}
                             <img src="{{ post[3] }}" alt="Ảnh bài viết">
                         {% endif %}
@@ -254,7 +254,7 @@
                     <div class="post-item">
                         <div>{{ "Post của: " + post[1] }}</div>
                         <div class="title-box">{{ post[2] }}</div>
-                        <small class="text-muted">Đăng lúc: {{ post[5] }}</small>
+                        <small class="text-muted">Đăng lúc: {{ post[5]|format_date }}</small>
                         {% if post[4] %}
                             <img src="{{ post[4] }}" alt="Ảnh bài viết">
                         {% endif %}
