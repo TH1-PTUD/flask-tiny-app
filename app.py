@@ -348,8 +348,14 @@ def delete_post(post_id):
     # Với GET, render trang xác nhận xóa bài viết
     return render_template('delete_post.html', post=post)
 
-@app.route('/logout')
+@app.route('/confirm_logout')
+def confirm_logout():
+    """Hiển thị trang xác nhận đăng xuất"""
+    return render_template('confirm_logout.html')
+
+@app.route('/logout', methods=['POST'])
 def logout():
+    """Xóa session và chuyển về trang chủ sau khi đăng xuất"""
     session.clear()
     flash("Bạn đã đăng xuất.", "info")
     return redirect(url_for('home'))
