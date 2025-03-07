@@ -187,7 +187,7 @@
             {% if session['role'] == 'admin' %}
                 <a href="{{ url_for('admin') }}" class="admin-button">Quản lý user</a>
             {% endif %}
-            <a href="{{ url_for('logout') }}" class="logout-button">Đăng xuất</a>
+            <a href="{{ url_for('confirm_logout') }}" class="logout-button">Đăng xuất</a>
         </div>
     {% endif %}
 
