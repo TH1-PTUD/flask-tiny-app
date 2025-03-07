@@ -109,10 +109,21 @@
 
         /* Post Styling */
         .posts-container {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 20px;
-            margin-top: 20px;
+            grid-template-columns: repeat(4, 1fr); /* Mặc định 4 cột trên desktop */
+            gap: 16px;
+            /* margin-top: 20px; */
+        }
+
+        @media (max-width: 1024px) { /* Tablet */
+            .posts-container {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+
+        @media (max-width: 600px) { /* Mobile */
+            .posts-container {
+                grid-template-columns: repeat(1, 1fr) !important;
+            }
         }
 
         .post-item {
@@ -327,4 +338,3 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 </body>
 </html>
-

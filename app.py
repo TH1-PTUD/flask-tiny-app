@@ -140,7 +140,7 @@ def dashboard():
 
     # Phân trang cho user_posts
     page_user = request.args.get('page_user', 1, type=int)
-    per_page = 10  # 10 bài mỗi trang
+    per_page = 8  
     offset_user = (page_user - 1) * per_page
 
     with sqlite3.connect(DATABASE) as conn:
@@ -186,7 +186,7 @@ def admin():
 
     # Phân trang cho admin
     page_admin = request.args.get('page_admin', 1, type=int)
-    per_page = 10  # 10 user mỗi trang
+    per_page = 8  
     offset_user = (page_admin - 1) * per_page
     with sqlite3.connect(DATABASE) as conn:
         c = conn.cursor()
